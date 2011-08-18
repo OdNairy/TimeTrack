@@ -27,7 +27,7 @@
 {    
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
     controller.delegate = self;
-    
+    //controller.modalPresentationStyle = UIModalPresentationPageSheet;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:controller animated:YES];
     
