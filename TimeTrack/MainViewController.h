@@ -9,7 +9,7 @@
 #import "FlipsideViewController.h"
 
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate> {
-
+    CalendarCenter* calendarCenter;
 }
 
 

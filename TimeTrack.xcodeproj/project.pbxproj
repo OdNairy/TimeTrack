@@ -26,6 +26,9 @@
 		FE82D9AC13FD1CAB0055A0D0 /* TimeTrackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D9AB13FD1CAB0055A0D0 /* TimeTrackTests.m */; };
 		FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8A6FF413FD2531009CA421 /* RegexKitLite.m */; };
 		FE8A6FF813FD2719009CA421 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8A6FF713FD2719009CA421 /* MapKit.framework */; };
+		FEF424ED13FD3B3500737AB9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EC13FD3B3500737AB9 /* EventKit.framework */; };
+		FEF424F013FD3B3B00737AB9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */; };
+		FEF424F413FD45E400737AB9 /* CalendarCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF424F313FD45E300737AB9 /* CalendarCenter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,10 @@
 		FE8A6FF313FD2531009CA421 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = SOURCE_ROOT; };
 		FE8A6FF413FD2531009CA421 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = SOURCE_ROOT; };
 		FE8A6FF713FD2719009CA421 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FEF424EC13FD3B3500737AB9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		FEF424F213FD45E300737AB9 /* CalendarCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarCenter.h; sourceTree = "<group>"; };
+		FEF424F313FD45E300737AB9 /* CalendarCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarCenter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +83,8 @@
 				FE82D97B13FD1CAA0055A0D0 /* Foundation.framework in Frameworks */,
 				FE82D97D13FD1CAA0055A0D0 /* CoreGraphics.framework in Frameworks */,
 				FE8A6FF813FD2719009CA421 /* MapKit.framework in Frameworks */,
+				FEF424ED13FD3B3500737AB9 /* EventKit.framework in Frameworks */,
+				FEF424F013FD3B3B00737AB9 /* EventKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +124,8 @@
 		FE82D97713FD1CAA0055A0D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */,
+				FEF424EC13FD3B3500737AB9 /* EventKit.framework */,
 				FE8A6FF713FD2719009CA421 /* MapKit.framework */,
 				FE82D97813FD1CAA0055A0D0 /* UIKit.framework */,
 				FE82D97A13FD1CAA0055A0D0 /* Foundation.framework */,
@@ -131,6 +142,8 @@
 				FE8A6FF613FD2681009CA421 /* xib-files */,
 				FE82D98D13FD1CAA0055A0D0 /* MainViewController.h */,
 				FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */,
+				FEF424F213FD45E300737AB9 /* CalendarCenter.h */,
+				FEF424F313FD45E300737AB9 /* CalendarCenter.m */,
 				FE82D99213FD1CAA0055A0D0 /* FlipsideViewController.h */,
 				FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */,
 				FE82D97F13FD1CAA0055A0D0 /* Supporting Files */,
@@ -299,6 +312,7 @@
 				FE82D98F13FD1CAA0055A0D0 /* MainViewController.m in Sources */,
 				FE82D99413FD1CAB0055A0D0 /* FlipsideViewController.m in Sources */,
 				FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */,
+				FEF424F413FD45E400737AB9 /* CalendarCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

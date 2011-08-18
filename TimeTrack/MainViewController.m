@@ -15,8 +15,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+}*/
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    calendarCenter = [[CalendarCenter alloc] init];
+    
+    NSArray* arr = [calendarCenter fetchEventsForToday];
+
+    
 }
-*/
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
 {
