@@ -1,0 +1,460 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FE82D97913FD1CAA0055A0D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97813FD1CAA0055A0D0 /* UIKit.framework */; };
+		FE82D97B13FD1CAA0055A0D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97A13FD1CAA0055A0D0 /* Foundation.framework */; };
+		FE82D97D13FD1CAA0055A0D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97C13FD1CAA0055A0D0 /* CoreGraphics.framework */; };
+		FE82D98313FD1CAA0055A0D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE82D98113FD1CAA0055A0D0 /* InfoPlist.strings */; };
+		FE82D98613FD1CAA0055A0D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98513FD1CAA0055A0D0 /* main.m */; };
+		FE82D98913FD1CAA0055A0D0 /* TimeTrackAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */; };
+		FE82D98C13FD1CAA0055A0D0 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE82D98A13FD1CAA0055A0D0 /* MainWindow.xib */; };
+		FE82D98F13FD1CAA0055A0D0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */; };
+		FE82D99113FD1CAA0055A0D0 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE82D99013FD1CAA0055A0D0 /* MainView.xib */; };
+		FE82D99413FD1CAB0055A0D0 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */; };
+		FE82D99613FD1CAB0055A0D0 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE82D99513FD1CAB0055A0D0 /* FlipsideView.xib */; };
+		FE82D99D13FD1CAB0055A0D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97813FD1CAA0055A0D0 /* UIKit.framework */; };
+		FE82D99E13FD1CAB0055A0D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97A13FD1CAA0055A0D0 /* Foundation.framework */; };
+		FE82D99F13FD1CAB0055A0D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97C13FD1CAA0055A0D0 /* CoreGraphics.framework */; };
+		FE82D9A713FD1CAB0055A0D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE82D9A513FD1CAB0055A0D0 /* InfoPlist.strings */; };
+		FE82D9AA13FD1CAB0055A0D0 /* TimeTrackTests.h in Resources */ = {isa = PBXBuildFile; fileRef = FE82D9A913FD1CAB0055A0D0 /* TimeTrackTests.h */; };
+		FE82D9AC13FD1CAB0055A0D0 /* TimeTrackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D9AB13FD1CAB0055A0D0 /* TimeTrackTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FE82D9A013FD1CAB0055A0D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE82D96B13FD1CAA0055A0D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE82D97313FD1CAA0055A0D0;
+			remoteInfo = TimeTrack;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FE82D97413FD1CAA0055A0D0 /* TimeTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE82D97813FD1CAA0055A0D0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FE82D97A13FD1CAA0055A0D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FE82D97C13FD1CAA0055A0D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FE82D98013FD1CAA0055A0D0 /* TimeTrack-Info.plist */ = {isa = PBXFileReference; path = "TimeTrack-Info.plist"; sourceTree = "<group>"; };
+		FE82D98213FD1CAA0055A0D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FE82D98413FD1CAA0055A0D0 /* TimeTrack-Prefix.pch */ = {isa = PBXFileReference; path = "TimeTrack-Prefix.pch"; sourceTree = "<group>"; };
+		FE82D98513FD1CAA0055A0D0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FE82D98713FD1CAA0055A0D0 /* TimeTrackAppDelegate.h */ = {isa = PBXFileReference; path = TimeTrackAppDelegate.h; sourceTree = "<group>"; };
+		FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeTrackAppDelegate.m; sourceTree = "<group>"; };
+		FE82D98B13FD1CAA0055A0D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		FE82D98D13FD1CAA0055A0D0 /* MainViewController.h */ = {isa = PBXFileReference; path = MainViewController.h; sourceTree = "<group>"; };
+		FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		FE82D99013FD1CAA0055A0D0 /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
+		FE82D99213FD1CAA0055A0D0 /* FlipsideViewController.h */ = {isa = PBXFileReference; path = FlipsideViewController.h; sourceTree = "<group>"; };
+		FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
+		FE82D99513FD1CAB0055A0D0 /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
+		FE82D99C13FD1CAB0055A0D0 /* TimeTrackTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTrackTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE82D9A413FD1CAB0055A0D0 /* TimeTrackTests-Info.plist */ = {isa = PBXFileReference; path = "TimeTrackTests-Info.plist"; sourceTree = "<group>"; };
+		FE82D9A613FD1CAB0055A0D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FE82D9A813FD1CAB0055A0D0 /* TimeTrackTests-Prefix.pch */ = {isa = PBXFileReference; path = "TimeTrackTests-Prefix.pch"; sourceTree = "<group>"; };
+		FE82D9A913FD1CAB0055A0D0 /* TimeTrackTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeTrackTests.h; sourceTree = "<group>"; };
+		FE82D9AB13FD1CAB0055A0D0 /* TimeTrackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeTrackTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FE82D97113FD1CAA0055A0D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE82D97913FD1CAA0055A0D0 /* UIKit.framework in Frameworks */,
+				FE82D97B13FD1CAA0055A0D0 /* Foundation.framework in Frameworks */,
+				FE82D97D13FD1CAA0055A0D0 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE82D99813FD1CAB0055A0D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE82D99D13FD1CAB0055A0D0 /* UIKit.framework in Frameworks */,
+				FE82D99E13FD1CAB0055A0D0 /* Foundation.framework in Frameworks */,
+				FE82D99F13FD1CAB0055A0D0 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FE82D96913FD1CAA0055A0D0 = {
+			isa = PBXGroup;
+			children = (
+				FE82D97E13FD1CAA0055A0D0 /* TimeTrack */,
+				FE82D9A213FD1CAB0055A0D0 /* TimeTrackTests */,
+				FE82D97713FD1CAA0055A0D0 /* Frameworks */,
+				FE82D97513FD1CAA0055A0D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FE82D97513FD1CAA0055A0D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE82D97413FD1CAA0055A0D0 /* TimeTrack.app */,
+				FE82D99C13FD1CAB0055A0D0 /* TimeTrackTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FE82D97713FD1CAA0055A0D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FE82D97813FD1CAA0055A0D0 /* UIKit.framework */,
+				FE82D97A13FD1CAA0055A0D0 /* Foundation.framework */,
+				FE82D97C13FD1CAA0055A0D0 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FE82D97E13FD1CAA0055A0D0 /* TimeTrack */ = {
+			isa = PBXGroup;
+			children = (
+				FE82D98713FD1CAA0055A0D0 /* TimeTrackAppDelegate.h */,
+				FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */,
+				FE82D98A13FD1CAA0055A0D0 /* MainWindow.xib */,
+				FE82D98D13FD1CAA0055A0D0 /* MainViewController.h */,
+				FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */,
+				FE82D99013FD1CAA0055A0D0 /* MainView.xib */,
+				FE82D99213FD1CAA0055A0D0 /* FlipsideViewController.h */,
+				FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */,
+				FE82D99513FD1CAB0055A0D0 /* FlipsideView.xib */,
+				FE82D97F13FD1CAA0055A0D0 /* Supporting Files */,
+			);
+			path = TimeTrack;
+			sourceTree = "<group>";
+		};
+		FE82D97F13FD1CAA0055A0D0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FE82D98013FD1CAA0055A0D0 /* TimeTrack-Info.plist */,
+				FE82D98113FD1CAA0055A0D0 /* InfoPlist.strings */,
+				FE82D98413FD1CAA0055A0D0 /* TimeTrack-Prefix.pch */,
+				FE82D98513FD1CAA0055A0D0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FE82D9A213FD1CAB0055A0D0 /* TimeTrackTests */ = {
+			isa = PBXGroup;
+			children = (
+				FE82D9A913FD1CAB0055A0D0 /* TimeTrackTests.h */,
+				FE82D9AB13FD1CAB0055A0D0 /* TimeTrackTests.m */,
+				FE82D9A313FD1CAB0055A0D0 /* Supporting Files */,
+			);
+			path = TimeTrackTests;
+			sourceTree = "<group>";
+		};
+		FE82D9A313FD1CAB0055A0D0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FE82D9A413FD1CAB0055A0D0 /* TimeTrackTests-Info.plist */,
+				FE82D9A513FD1CAB0055A0D0 /* InfoPlist.strings */,
+				FE82D9A813FD1CAB0055A0D0 /* TimeTrackTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FE82D97313FD1CAA0055A0D0 /* TimeTrack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE82D9AF13FD1CAB0055A0D0 /* Build configuration list for PBXNativeTarget "TimeTrack" */;
+			buildPhases = (
+				FE82D97013FD1CAA0055A0D0 /* Sources */,
+				FE82D97113FD1CAA0055A0D0 /* Frameworks */,
+				FE82D97213FD1CAA0055A0D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TimeTrack;
+			productName = TimeTrack;
+			productReference = FE82D97413FD1CAA0055A0D0 /* TimeTrack.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FE82D99B13FD1CAB0055A0D0 /* TimeTrackTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE82D9B213FD1CAB0055A0D0 /* Build configuration list for PBXNativeTarget "TimeTrackTests" */;
+			buildPhases = (
+				FE82D99713FD1CAB0055A0D0 /* Sources */,
+				FE82D99813FD1CAB0055A0D0 /* Frameworks */,
+				FE82D99913FD1CAB0055A0D0 /* Resources */,
+				FE82D99A13FD1CAB0055A0D0 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FE82D9A113FD1CAB0055A0D0 /* PBXTargetDependency */,
+			);
+			name = TimeTrackTests;
+			productName = TimeTrackTests;
+			productReference = FE82D99C13FD1CAB0055A0D0 /* TimeTrackTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FE82D96B13FD1CAA0055A0D0 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = FE82D96E13FD1CAA0055A0D0 /* Build configuration list for PBXProject "TimeTrack" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FE82D96913FD1CAA0055A0D0;
+			productRefGroup = FE82D97513FD1CAA0055A0D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FE82D97313FD1CAA0055A0D0 /* TimeTrack */,
+				FE82D99B13FD1CAB0055A0D0 /* TimeTrackTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FE82D97213FD1CAA0055A0D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE82D98313FD1CAA0055A0D0 /* InfoPlist.strings in Resources */,
+				FE82D98C13FD1CAA0055A0D0 /* MainWindow.xib in Resources */,
+				FE82D99113FD1CAA0055A0D0 /* MainView.xib in Resources */,
+				FE82D99613FD1CAB0055A0D0 /* FlipsideView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE82D99913FD1CAB0055A0D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE82D9A713FD1CAB0055A0D0 /* InfoPlist.strings in Resources */,
+				FE82D9AA13FD1CAB0055A0D0 /* TimeTrackTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FE82D99A13FD1CAB0055A0D0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FE82D97013FD1CAA0055A0D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE82D98613FD1CAA0055A0D0 /* main.m in Sources */,
+				FE82D98913FD1CAA0055A0D0 /* TimeTrackAppDelegate.m in Sources */,
+				FE82D98F13FD1CAA0055A0D0 /* MainViewController.m in Sources */,
+				FE82D99413FD1CAB0055A0D0 /* FlipsideViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE82D99713FD1CAB0055A0D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE82D9AC13FD1CAB0055A0D0 /* TimeTrackTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FE82D9A113FD1CAB0055A0D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE82D97313FD1CAA0055A0D0 /* TimeTrack */;
+			targetProxy = FE82D9A013FD1CAB0055A0D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FE82D98113FD1CAA0055A0D0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FE82D98213FD1CAA0055A0D0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FE82D98A13FD1CAA0055A0D0 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FE82D98B13FD1CAA0055A0D0 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		FE82D9A513FD1CAB0055A0D0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FE82D9A613FD1CAB0055A0D0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FE82D9AD13FD1CAB0055A0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		FE82D9AE13FD1CAB0055A0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		FE82D9B013FD1CAB0055A0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TimeTrack/TimeTrack-Prefix.pch";
+				INFOPLIST_FILE = "TimeTrack/TimeTrack-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FE82D9B113FD1CAB0055A0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TimeTrack/TimeTrack-Prefix.pch";
+				INFOPLIST_FILE = "TimeTrack/TimeTrack-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		FE82D9B313FD1CAB0055A0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TimeTrack.app/TimeTrack";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TimeTrackTests/TimeTrackTests-Prefix.pch";
+				INFOPLIST_FILE = "TimeTrackTests/TimeTrackTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		FE82D9B413FD1CAB0055A0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TimeTrack.app/TimeTrack";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TimeTrackTests/TimeTrackTests-Prefix.pch";
+				INFOPLIST_FILE = "TimeTrackTests/TimeTrackTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FE82D96E13FD1CAA0055A0D0 /* Build configuration list for PBXProject "TimeTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE82D9AD13FD1CAB0055A0D0 /* Debug */,
+				FE82D9AE13FD1CAB0055A0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FE82D9AF13FD1CAB0055A0D0 /* Build configuration list for PBXNativeTarget "TimeTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE82D9B013FD1CAB0055A0D0 /* Debug */,
+				FE82D9B113FD1CAB0055A0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FE82D9B213FD1CAB0055A0D0 /* Build configuration list for PBXNativeTarget "TimeTrackTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE82D9B313FD1CAB0055A0D0 /* Debug */,
+				FE82D9B413FD1CAB0055A0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FE82D96B13FD1CAA0055A0D0 /* Project object */;
+}
