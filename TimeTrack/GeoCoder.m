@@ -19,14 +19,13 @@
 
 @implementation GeoCoder
 
-+(NSString*)getGeoCode:(NSString*)place{
++(NSString*)getGeoCodeString:(NSString*)place{
     NSString* a = [NSString stringWithContentsOfURL:[NSURL URLWithString:
                                                      [NSString stringWithFormat:
-  @"http://maps.google.com/maps/geo?q=%@&output=csv&oe=utf8&sensor=false&key=ABQIAAAAsQG"
+ @"http://maps.google.com/maps/geo?q=%@&output=csv&oe=utf8&sensor=false&key=ABQIAAAAsQG"
   "q8WplM--eXjoG22fyoxQfeLOjlwh1gOAGly-wMj-tpVbFhxRxlFsf4c59AN-bk20pwlqZVKAjtA",place]] 
                                            encoding:NSUTF8StringEncoding 
                                               error:nil];
-
     if ([[a stringByMatching:@"^[0-9]{3}"] isEqualToString:G_GEO_SUCCESS]) {
         return [a stringByMatching:@"^[0-9]{3},(.*)" capture:1L];
     }
@@ -34,12 +33,14 @@
     return nil;
 }
 
-+(CLLocationCoordinate2D)getCoordinatesOfPlace:(NSString*)place{
-    NSString* coors = [GeoCoder getGeoCode:place];
-    CLLocationCoordinate2D tmp;
-    tmp.latitude  = [[coors stringByMatching:@"^..(.*)"   capture:1L] floatValue];
-    tmp.longitude = [[coors stringByMatching:@",.*?,(.*)" capture:1L] floatValue];
-    return tmp;
++(CLLocationCoordinate2D)getGeoCodeCoordinates:(NSString*)place{
+    NSString* coors = [GeoCoder getGeoCodeString:place];
+//    CLLocationCoordinate2D coordinates;
+//    coordinates.latitude = [[coors stringByMatching:@"^..(.*)"   capture:1L] floatValue];
+//    coordinates.longitude = [[coors stringByMatching:@",.*?,(.*)" capture:1L] floatValue];
+    return CLLocationCoordinate2DMake([[coors stringByMatching:@"^..(.*)"   capture:1L] floatValue], 
+                                      [[coors stringByMatching:@",.*?,(.*)" capture:1L] floatValue]);
+//    return coordinates;
 }
 
 

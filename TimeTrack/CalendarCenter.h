@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import <MapKit/MapKit.h>
+#import "GeoCoder.h"
 
 @interface CalendarCenter: NSObject{
         
@@ -24,6 +26,7 @@
 @property (nonatomic, retain) EKEventViewController *detailViewController;
 
 - (NSArray *) fetchEventsForToday;
+- (NSArray *) fetchEventsWithCoordinatesFrom: (NSDate*)from to:(NSDate*)to;
 //- (IBAction) addEvent:(id)sender;
 
 @end

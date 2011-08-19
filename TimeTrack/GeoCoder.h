@@ -13,7 +13,7 @@
 
 @interface GeoCoder
 
-+(NSString*)getGeoCode:(NSString*)place;
-+(CLLocationCoordinate2D)getCoordinatesOfPlace:(NSString*)place;
++(NSString*)getGeoCodeString:(NSString*)place;
++(CLLocationCoordinate2D)getGeoCodeCoordinates:(NSString*)place;
 
 @end

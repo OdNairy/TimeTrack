@@ -12,7 +12,6 @@
     CalendarCenter* calendarCenter;
 }
 
-
 - (IBAction)showInfo:(id)sender;
 
 @end

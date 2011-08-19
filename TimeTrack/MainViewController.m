@@ -7,16 +7,9 @@
 //
 
 #import "MainViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation MainViewController
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-}*/
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -30,13 +23,11 @@
 //    [alert show];
 //    [alert release];
     
-   // NSLog([GeoCoder stringToCoordinate:@"London"]);
-    NSArray* arr = [calendarCenter fetchEventsForToday];
-    [GeoCoder getCoordinatesOfPlace:@"London"];
-    for (EKEvent* event in arr) {
-     //   CLLocationCoordinate2D* a;
-        ;// event.location
-    }
+//    NSArray* arr = [calendarCenter fetchEventsForToday];
+//    //EKEventStore* myStore = [[EKLocation alloc] init];
+
+    [calendarCenter fetchEventsWithCoordinatesFrom:[NSDate date] to:[NSDate dateWithTimeIntervalSinceNow:86400]];
+    
 }
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
@@ -48,7 +39,6 @@
 {    
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
     controller.delegate = self;
-    //controller.modalPresentationStyle = UIModalPresentationPageSheet;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:controller animated:YES];
     
@@ -57,16 +47,12 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations.
     return YES;
 }
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
 }
 
 - (void)viewDidUnload
