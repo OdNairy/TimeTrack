@@ -22,9 +22,21 @@
     [super viewDidAppear:animated];
     calendarCenter = [[CalendarCenter alloc] init];
     
-    NSArray* arr = [calendarCenter fetchEventsForToday];
-
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"An error occured"
+//                                                    message:@"Geocoding failed" 
+//                                                   delegate:nil 
+//                                          cancelButtonTitle:@"Ok!" 
+//                                          otherButtonTitles:nil];
+//    [alert show];
+//    [alert release];
     
+   // NSLog([GeoCoder stringToCoordinate:@"London"]);
+    NSArray* arr = [calendarCenter fetchEventsForToday];
+    [GeoCoder getCoordinatesOfPlace:@"London"];
+    for (EKEvent* event in arr) {
+     //   CLLocationCoordinate2D* a;
+        ;// event.location
+    }
 }
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
@@ -46,7 +58,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning

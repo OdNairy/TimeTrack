@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 #import "CalendarCenter.h"
+#import "GeoCoder.h"
 
 @protocol FlipsideViewControllerDelegate;
 
