@@ -3,7 +3,7 @@
 //  TimeTrack
 //
 //  Created by Roman Hardukevich on 18.08.11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 iTransition ©. All rights reserved.
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -13,12 +13,11 @@
 #import "GeoCoder.h"
 
 @interface CalendarCenter: NSObject{
-        
-        EKEventViewController *detailViewController;
-        EKEventStore *eventStore;
-        EKCalendar *defaultCalendar;
-        NSMutableArray *eventsList;
-    }
+    EKEventViewController   *detailViewController;
+             EKEventStore   *eventStore;
+               EKCalendar   *defaultCalendar;
+           NSMutableArray   *eventsList;
+}
 
 @property (nonatomic, retain) EKEventStore *eventStore;
 @property (nonatomic, retain) EKCalendar *defaultCalendar;
@@ -27,6 +26,5 @@
 
 - (NSArray *) fetchEventsForToday;
 - (NSArray *) fetchEventsWithCoordinatesFrom: (NSDate*)from to:(NSDate*)to;
-//- (IBAction) addEvent:(id)sender;
 
 @end

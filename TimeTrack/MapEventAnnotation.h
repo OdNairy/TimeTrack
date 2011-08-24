@@ -1,24 +1,32 @@
 //
 //  PlaceMark.h
-//  Miller
+//  TimeTrack
 //
-//  Created by kadir pekel on 2/7/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by Roman Hardukevich on 18.08.11.
+//  Copyright 2011 iTransition ©. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "MapEvent.h"
 
-@interface MapEventAnnotation : NSObject <MKAnnotation> {
+@interface MapEventAnnotation : NSObject<MKAnnotation> {
 
 	CLLocationCoordinate2D coordinate;
-	MapEvent* place;
+    NSString* title;
+	NSString* subtitle;
 }
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property (nonatomic, retain) MapEvent* place;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, copy) NSString *subtitle;
 
--(id) initWithPlace: (MapEvent*) p;
+-(id)initWithName:(NSString*)_name 
+      description:(NSString*)_description 
+         latitude:(CLLocationDegrees)_latitude 
+        longitude:(CLLocationDegrees)_longitude; 
++(MapEventAnnotation*)mapEventAnnotationWithName:(NSString*)_name 
+                                     description:(NSString*)_description 
+                                        latitude:(CLLocationDegrees)_latitude 
+                                       longitude:(CLLocationDegrees)_longitude;
 
 @end

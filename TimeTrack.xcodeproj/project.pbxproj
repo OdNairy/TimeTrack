@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE33B79A14016FEA00E487B2 /* MapDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE33B79914016FE900E487B2 /* MapDelegate.m */; };
 		FE6B85A213FD6BE000EA1861 /* GeoCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = FE6B85A113FD6BDF00EA1861 /* GeoCoder.m */; };
 		FE6D1EFA13FEAF2F00A3FD59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6D1EF913FEAF2F00A3FD59 /* CoreLocation.framework */; };
 		FE82D97913FD1CAA0055A0D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE82D97813FD1CAA0055A0D0 /* UIKit.framework */; };
@@ -29,7 +30,7 @@
 		FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8A6FF413FD2531009CA421 /* RegexKitLite.m */; };
 		FE8A6FF813FD2719009CA421 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8A6FF713FD2719009CA421 /* MapKit.framework */; };
 		FE94AF4913FD9A1B00018849 /* MapEventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */; };
-		FE94AF4C13FD9A6800018849 /* MapEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = FE94AF4B13FD9A6800018849 /* MapEvent.m */; };
+		FEC2965A140541DA004F1F51 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = FEC29659140541DA004F1F51 /* profile.png */; };
 		FEF424ED13FD3B3500737AB9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EC13FD3B3500737AB9 /* EventKit.framework */; };
 		FEF424F013FD3B3B00737AB9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */; };
 		FEF424F413FD45E400737AB9 /* CalendarCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF424F313FD45E300737AB9 /* CalendarCenter.m */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE33B79814016FE900E487B2 /* MapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapDelegate.h; sourceTree = "<group>"; };
+		FE33B79914016FE900E487B2 /* MapDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapDelegate.m; sourceTree = "<group>"; };
 		FE6B85A013FD6BDF00EA1861 /* GeoCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCoder.h; sourceTree = "<group>"; };
 		FE6B85A113FD6BDF00EA1861 /* GeoCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoCoder.m; sourceTree = "<group>"; };
 		FE6D1EF913FEAF2F00A3FD59 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -77,8 +80,7 @@
 		FE8A6FF713FD2719009CA421 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FE94AF4713FD9A1A00018849 /* MapEventAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapEventAnnotation.h; sourceTree = "<group>"; };
 		FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapEventAnnotation.m; sourceTree = "<group>"; };
-		FE94AF4A13FD9A6800018849 /* MapEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapEvent.h; sourceTree = "<group>"; };
-		FE94AF4B13FD9A6800018849 /* MapEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapEvent.m; sourceTree = "<group>"; };
+		FEC29659140541DA004F1F51 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		FEF424EC13FD3B3500737AB9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		FEF424F213FD45E300737AB9 /* CalendarCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarCenter.h; sourceTree = "<group>"; };
@@ -150,11 +152,10 @@
 		FE82D97E13FD1CAA0055A0D0 /* TimeTrack */ = {
 			isa = PBXGroup;
 			children = (
-				FE94AF4A13FD9A6800018849 /* MapEvent.h */,
-				FE94AF4B13FD9A6800018849 /* MapEvent.m */,
+				FE33B79814016FE900E487B2 /* MapDelegate.h */,
+				FE33B79914016FE900E487B2 /* MapDelegate.m */,
 				FE94AF4713FD9A1A00018849 /* MapEventAnnotation.h */,
 				FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */,
-				FE82D97F13FD1CAA0055A0D0 /* Supporting Files */,
 				FE8A6FF613FD2681009CA421 /* xib-files */,
 				FE94AF4513FD980600018849 /* Controllers */,
 				FE6B85A013FD6BDF00EA1861 /* GeoCoder.h */,
@@ -163,6 +164,7 @@
 				FEF424F313FD45E300737AB9 /* CalendarCenter.m */,
 				FE82D98713FD1CAA0055A0D0 /* TimeTrackAppDelegate.h */,
 				FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */,
+				FE82D97F13FD1CAA0055A0D0 /* Supporting Files */,
 			);
 			path = TimeTrack;
 			sourceTree = "<group>";
@@ -170,6 +172,7 @@
 		FE82D97F13FD1CAA0055A0D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FEC29659140541DA004F1F51 /* profile.png */,
 				FE82D98013FD1CAA0055A0D0 /* TimeTrack-Info.plist */,
 				FE82D98113FD1CAA0055A0D0 /* InfoPlist.strings */,
 				FE82D98413FD1CAA0055A0D0 /* TimeTrack-Prefix.pch */,
@@ -299,6 +302,7 @@
 				FE82D98C13FD1CAA0055A0D0 /* MainWindow.xib in Resources */,
 				FE82D99113FD1CAA0055A0D0 /* MainView.xib in Resources */,
 				FE82D99613FD1CAB0055A0D0 /* FlipsideView.xib in Resources */,
+				FEC2965A140541DA004F1F51 /* profile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +346,7 @@
 				FEF424F413FD45E400737AB9 /* CalendarCenter.m in Sources */,
 				FE6B85A213FD6BE000EA1861 /* GeoCoder.m in Sources */,
 				FE94AF4913FD9A1B00018849 /* MapEventAnnotation.m in Sources */,
-				FE94AF4C13FD9A6800018849 /* MapEvent.m in Sources */,
+				FE33B79A14016FEA00E487B2 /* MapDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

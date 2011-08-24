@@ -3,7 +3,7 @@
 //  TimeTrack
 //
 //  Created by Roman Hardukevich on 18.08.11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 iTransition ©. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -15,5 +15,6 @@
 
 +(NSString*)getGeoCodeString:(NSString*)place;
 +(CLLocationCoordinate2D)getGeoCodeCoordinates:(NSString*)place;
++(CLLocationCoordinate2D)getCoorsFromString:(NSString*)place;
 
 @end

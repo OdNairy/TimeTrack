@@ -1,9 +1,9 @@
 //
 //  PlaceMark.m
-//  Miller
+//  TimeTrack
 //
-//  Created by kadir pekel on 2/7/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by Roman Hardukevich on 18.08.11.
+//  Copyright 2011 iTransition ©. All rights reserved.
 //
 
 #import "MapEventAnnotation.h"
@@ -11,32 +11,42 @@
 
 @implementation MapEventAnnotation
 
-@synthesize coordinate;
-@synthesize place;
+@synthesize coordinate,title,subtitle;
 
--(id) initWithPlace: (MapEvent*) p
+-(id) initWithName:(NSString *)_name
+       description:(NSString *)_description
+          latitude:(CLLocationDegrees)_latitude
+         longitude:(CLLocationDegrees)_longitude
 {
 	self = [super init];
-	if (self != nil) {
-		coordinate.latitude = p.latitude;
-		coordinate.longitude = p.longitude;
-		self.place = p;
+	if (self != nil)
+    {
+                   self.title = _name        ;
+                self.subtitle = _description ;
+          coordinate.latitude = _latitude    ;
+         coordinate.longitude = _longitude   ;
 	}
 	return self;
 }
 
-- (NSString *)subtitle
++(MapEventAnnotation*)mapEventAnnotationWithName:(NSString *)_name
+                                     description:(NSString *)_description
+                                        latitude:(CLLocationDegrees)_latitude
+                                       longitude:(CLLocationDegrees)_longitude
 {
-	return self.place.description;
-}
-- (NSString *)title
-{
-	return self.place.name;
+    MapEventAnnotation* annotation = [[[MapEventAnnotation alloc] initWithName:_name
+                                                                   description:_description
+                                                                      latitude:_latitude
+                                                                     longitude:_longitude]
+                                      autorelease];
+    return annotation;
 }
 
 - (void) dealloc
 {
-	[place release];
+    self.title = nil;
+    self.subtitle = nil;
+
 	[super dealloc];
 }
 

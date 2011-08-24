@@ -3,7 +3,7 @@
 //  TimeTrack
 //
 //  Created by Roman Hardukevich on 18.08.11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 iTransition ©. All rights reserved.
 //
 
 #import "GeoCoder.h"
@@ -35,14 +35,11 @@
 
 +(CLLocationCoordinate2D)getGeoCodeCoordinates:(NSString*)place{
     NSString* coors = [GeoCoder getGeoCodeString:place];
-//    CLLocationCoordinate2D coordinates;
-//    coordinates.latitude = [[coors stringByMatching:@"^..(.*)"   capture:1L] floatValue];
-//    coordinates.longitude = [[coors stringByMatching:@",.*?,(.*)" capture:1L] floatValue];
-    return CLLocationCoordinate2DMake([[coors stringByMatching:@"^..(.*)"   capture:1L] floatValue], 
-                                      [[coors stringByMatching:@",.*?,(.*)" capture:1L] floatValue]);
-//    return coordinates;
+    return [GeoCoder getCoorsFromString:coors];
 }
 
-
-
++(CLLocationCoordinate2D)getCoorsFromString:(NSString *)place{
+    return CLLocationCoordinate2DMake([[place stringByMatching:@"^..(.*)"   capture:1L] floatValue], 
+                                      [[place stringByMatching:@",.*?,(.*)" capture:1L] floatValue]);
+}
 @end
