@@ -30,6 +30,9 @@
 		FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8A6FF413FD2531009CA421 /* RegexKitLite.m */; };
 		FE8A6FF813FD2719009CA421 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8A6FF713FD2719009CA421 /* MapKit.framework */; };
 		FE94AF4913FD9A1B00018849 /* MapEventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */; };
+		FE9E4CC2140572D2002B22F7 /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9E4CC1140572D2002B22F7 /* TrackMap.m */; };
+		FE9E4CCD140575F4002B22F7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9E4CCC140575F4002B22F7 /* Reachability.m */; };
+		FE9E4CD31405771D002B22F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9E4CD21405771D002B22F7 /* SystemConfiguration.framework */; };
 		FEC2965A140541DA004F1F51 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = FEC29659140541DA004F1F51 /* profile.png */; };
 		FEF424ED13FD3B3500737AB9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EC13FD3B3500737AB9 /* EventKit.framework */; };
 		FEF424F013FD3B3B00737AB9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */; };
@@ -80,6 +83,11 @@
 		FE8A6FF713FD2719009CA421 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FE94AF4713FD9A1A00018849 /* MapEventAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapEventAnnotation.h; sourceTree = "<group>"; };
 		FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapEventAnnotation.m; sourceTree = "<group>"; };
+		FE9E4CC0140572D2002B22F7 /* TrackMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMap.h; sourceTree = "<group>"; };
+		FE9E4CC1140572D2002B22F7 /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
+		FE9E4CCB140575F4002B22F7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = SOURCE_ROOT; };
+		FE9E4CCC140575F4002B22F7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = SOURCE_ROOT; };
+		FE9E4CD21405771D002B22F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FEC29659140541DA004F1F51 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		FEF424EC13FD3B3500737AB9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -99,6 +107,7 @@
 				FEF424ED13FD3B3500737AB9 /* EventKit.framework in Frameworks */,
 				FEF424F013FD3B3B00737AB9 /* EventKitUI.framework in Frameworks */,
 				FE6D1EFA13FEAF2F00A3FD59 /* CoreLocation.framework in Frameworks */,
+				FE9E4CD31405771D002B22F7 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +147,7 @@
 		FE82D97713FD1CAA0055A0D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE9E4CD21405771D002B22F7 /* SystemConfiguration.framework */,
 				FE82D97C13FD1CAA0055A0D0 /* CoreGraphics.framework */,
 				FE6D1EF913FEAF2F00A3FD59 /* CoreLocation.framework */,
 				FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */,
@@ -156,6 +166,8 @@
 				FE33B79914016FE900E487B2 /* MapDelegate.m */,
 				FE94AF4713FD9A1A00018849 /* MapEventAnnotation.h */,
 				FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */,
+				FE9E4CC0140572D2002B22F7 /* TrackMap.h */,
+				FE9E4CC1140572D2002B22F7 /* TrackMap.m */,
 				FE8A6FF613FD2681009CA421 /* xib-files */,
 				FE94AF4513FD980600018849 /* Controllers */,
 				FE6B85A013FD6BDF00EA1861 /* GeoCoder.h */,
@@ -204,6 +216,8 @@
 		FE82D9B513FD1CDA0055A0D0 /* RegexKitLite */ = {
 			isa = PBXGroup;
 			children = (
+				FE9E4CCB140575F4002B22F7 /* Reachability.h */,
+				FE9E4CCC140575F4002B22F7 /* Reachability.m */,
 				FE8A6FF313FD2531009CA421 /* RegexKitLite.h */,
 				FE8A6FF413FD2531009CA421 /* RegexKitLite.m */,
 			);
@@ -347,6 +361,8 @@
 				FE6B85A213FD6BE000EA1861 /* GeoCoder.m in Sources */,
 				FE94AF4913FD9A1B00018849 /* MapEventAnnotation.m in Sources */,
 				FE33B79A14016FEA00E487B2 /* MapDelegate.m in Sources */,
+				FE9E4CC2140572D2002B22F7 /* TrackMap.m in Sources */,
+				FE9E4CCD140575F4002B22F7 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +425,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LD_OPENMP_FLAGS = "-fopenmp";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -423,6 +440,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LD_OPENMP_FLAGS = "-fopenmp";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 			};

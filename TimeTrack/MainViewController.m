@@ -11,10 +11,18 @@
 #import "MapDelegate.h"
 
 @implementation MainViewController
-@synthesize mapView;
+@synthesize mapView,locationManager;
 
 -(void)fetchAll:(id)object
 {
+    
+    if (![MainViewController isNetworkAvailable])
+    {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There are no internet connection" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        return;
+    }
     eventArray = (NSMutableArray*)[calendarCenter fetchEventsWithCoordinatesFrom:[NSDate dateWithTimeIntervalSinceNow:-86400*10] to:[NSDate dateWithTimeIntervalSinceNow:86400]];
     
     NSDateFormatter* formater = [[NSDateFormatter alloc] init];
@@ -30,7 +38,6 @@
                                                                      latitude:coors.latitude
                                                                     longitude:coors.longitude]];
     }
-    
     
    /* 
     MKMapRect flyTo = MKMapRectNull;
@@ -50,6 +57,23 @@
     mapView.visibleMapRect = flyTo;*/
 }
 
++ (BOOL)isNetworkAvailable {
+    
+    Reachability *internetReach;
+    internetReach = [Reachability reachabilityForInternetConnection];
+    [internetReach startNotifier];
+    NetworkStatus netStatus = [internetReach currentReachabilityStatus];
+    if(netStatus == NotReachable) { 
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There are no internet connection" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        
+        NSLog(@"Network Unavailable");
+        return NO;
+    }
+    else
+        return YES;
+}
 
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
@@ -85,8 +109,10 @@
 {
     [super viewDidAppear:animated];
     calendarCenter = [[CalendarCenter alloc] init];
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     [self performSelectorInBackground:@selector(fetchAll:) withObject:nil];
     
+    [pool release];
     return;
 }
 
@@ -94,6 +120,15 @@
 -(void)viewDidLoad
 {
     mapView.delegate = self;
+    
+    // Create location manager with filters set for battery efficiency.
+	locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	
+	// Start updating location changes.
+	[locationManager startUpdatingLocation];
 }
 
 - (void)viewDidUnload
@@ -108,6 +143,8 @@
 
 - (void)dealloc
 {
+    self.locationManager.delegate = nil;
+	[locationManager release];
     [calendarCenter release];
     [mapView release];
     [super dealloc];
@@ -115,6 +152,41 @@
 
 #pragma mark -
 
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+	NSLog(@"didFailWithError: %@", error);
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+	NSLog(@"didUpdateToLocation %@ from %@", newLocation, oldLocation);
+	
+	// Work around a bug in MapKit where user location is not initially zoomed to.
+	if (oldLocation == nil) {
+		// Zoom to the current user location.
+		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
+		[mapView setRegion:userLocation animated:YES];
+	}
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region  {
+	NSString *event = [NSString stringWithFormat:@"didEnterRegion %@ at %@", region.identifier, [NSDate date]];
+    NSLog(@"%@",event);
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+	NSString *event = [NSString stringWithFormat:@"didExitRegion %@ at %@", region.identifier, [NSDate date]];
+    NSLog(@"%@",event);
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+	NSString *event = [NSString stringWithFormat:@"monitoringDidFailForRegion %@: %@", region.identifier, error];
+    NSLog(@"%@",event);
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
