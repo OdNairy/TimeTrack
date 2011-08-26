@@ -11,12 +11,16 @@
 #import "Reachability.h"
 #import "RegexKitLite.h"
 @interface TrackMap : MKMapView
+
 {
-    
+@private
+    NSMutableArray* routes;
+    UIColor* lineColor;
 }
 
 // returned time to pass from A to B
 - (NSDate*)showPathFrom:(CLLocationCoordinate2D)A to:(CLLocationCoordinate2D)B;
+- (NSArray*) calculateRoutesFrom:(CLLocationCoordinate2D)A to: (CLLocationCoordinate2D)B WriteTimeTo:(NSMutableString*)travelTime;
 
 
 @end

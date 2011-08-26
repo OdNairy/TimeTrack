@@ -8,10 +8,37 @@
 
 #import "MainViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "MapDelegate.h"
+
+@interface MainViewController() 
+
+-(void)fetchAll:(id)object;
+@end
 
 @implementation MainViewController
 @synthesize mapView,locationManager;
+
+
+-(void)drawPathWithArray:(NSArray *)points
+{   
+
+    CLLocationCoordinate2D* arr = malloc(points.count * sizeof(CLLocationCoordinate2D));
+    for (size_t i = 0; i < points.count; ++i) 
+    {
+        arr[i] = ((CLLocation*)[points objectAtIndex:i]).coordinate;
+    }
+
+    MKPolyline* polyline = [MKPolyline polylineWithCoordinates:arr count:[points count]];
+    polyline.title = @"Line";
+    
+    [mapView addOverlay:polyline];
+    [polyline release];
+    free(arr);
+}
+
+-(void)showPathFrom:(CLLocationCoordinate2D)A To:(CLLocationCoordinate2D)B
+{
+    [mapView showPathFrom:A to:B];
+}
 
 -(void)fetchAll:(id)object
 {
@@ -38,24 +65,21 @@
                                                                      latitude:coors.latitude
                                                                     longitude:coors.longitude]];
     }
+
+    CLLocationCoordinate2D  points[4];
     
-   /* 
-    MKMapRect flyTo = MKMapRectNull;
-	for (id <MKAnnotation> annotation in mapView.annotations) {
-		NSLog(@"fly to on");
-        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
-        if (MKMapRectIsNull(flyTo)) {
-            flyTo = pointRect;
-        } else {
-            flyTo = MKMapRectUnion(flyTo, pointRect);
-			//NSLog(@"else-%@",annotationPoint.x);
-        }
-    }
+    points[0] = CLLocationCoordinate2DMake(41.000512, -109.050116);
+    points[1] = CLLocationCoordinate2DMake(41.002371, -102.052066);
+   
     
-    // Position the map so that all overlays and annotations are visible on screen.
-    mapView.visibleMapRect = flyTo;*/
+    NSArray* arr = [GADirections calculateRoutesFrom:points[0] to:points[1] WriteTimeTo:nil];
+    [self drawPathWithArray:arr];
+    
+    return;
 }
+
+
+
 
 + (BOOL)isNetworkAvailable {
     
@@ -81,6 +105,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+
 - (IBAction)showInfo:(id)sender
 {    
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
@@ -91,14 +116,28 @@
     [controller release];
 }
 
-
-- (void)didReceiveMemoryWarning
+- (IBAction)longTap:(UILongPressGestureRecognizer *)gestureRecognizer
 {
-    [super didReceiveMemoryWarning];
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        
+        UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Reset" action:@selector(showInfo:)];
+        CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
+        
+        [self.view becomeFirstResponder];
+        [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
+        [menuController setTargetRect:CGRectMake(location.x, location.y, 0, 0) inView:mapView];
+        [menuController setMenuVisible:YES animated:YES];
+        
+        
+        [resetMenuItem release];
+
+    }
+
 }
 
-#pragma mark -
-#pragma mark App Live Circle
+
+#pragma mark - App Live Circle
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -109,9 +148,9 @@
 {
     [super viewDidAppear:animated];
     calendarCenter = [[CalendarCenter alloc] init];
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     [self performSelectorInBackground:@selector(fetchAll:) withObject:nil];
-    
     [pool release];
     return;
 }
@@ -129,6 +168,10 @@
 	
 	// Start updating location changes.
 	[locationManager startUpdatingLocation];
+    
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
+    [mapView addGestureRecognizer:longPressGesture];
+    [longPressGesture release];
 }
 
 - (void)viewDidUnload
@@ -150,42 +193,34 @@
     [super dealloc];
 }
 
-#pragma mark -
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	NSLog(@"didFailWithError: %@", error);
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolyline class]])
+    {
+        MKPolylineView*    aView = [[[MKPolylineView alloc] initWithPolyline:(MKPolyline*)overlay] autorelease];
+        
+        aView.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        aView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.8];
+        aView.lineWidth = 3;
+        
+        return aView;
+    }
+    
+    return nil;
 }
 
 
+#pragma mark - LocationManager Delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 	NSLog(@"didUpdateToLocation %@ from %@", newLocation, oldLocation);
-	
-	// Work around a bug in MapKit where user location is not initially zoomed to.
-	if (oldLocation == nil) {
+
+    if (oldLocation == nil)
+    {
 		// Zoom to the current user location.
 		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
 		[mapView setRegion:userLocation animated:YES];
-	}
-}
-
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region  {
-	NSString *event = [NSString stringWithFormat:@"didEnterRegion %@ at %@", region.identifier, [NSDate date]];
-    NSLog(@"%@",event);
-}
-
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-	NSString *event = [NSString stringWithFormat:@"didExitRegion %@ at %@", region.identifier, [NSDate date]];
-    NSLog(@"%@",event);
-}
-
-
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-	NSString *event = [NSString stringWithFormat:@"monitoringDidFailForRegion %@: %@", region.identifier, error];
-    NSLog(@"%@",event);
+    }
+	
 }
 
 
