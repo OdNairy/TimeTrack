@@ -105,6 +105,19 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)addEvent:(id)sender {
+	// When add button is pushed, create an EKEventEditViewController to display the event.
+	EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
+	
+	// set the addController's event store to the current event store.
+	addController.eventStore =  calendarCenter.eventStore;
+	
+	// present EventsAddViewController as a modal view controller
+	[self presentModalViewController:addController animated:YES];
+	
+	addController.editViewDelegate = calendarCenter;
+	[addController release];
+}
 
 - (IBAction)showInfo:(id)sender
 {    
@@ -119,7 +132,7 @@
 - (IBAction)longTap:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        /*UIMenuController *menuController = [UIMenuController sharedMenuController];
         
         UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Reset" action:@selector(showInfo:)];
         CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
@@ -130,8 +143,8 @@
         [menuController setMenuVisible:YES animated:YES];
         
         
-        [resetMenuItem release];
-
+        [resetMenuItem release];*/
+        [self addEvent:gestureRecognizer];
     }
 
 }

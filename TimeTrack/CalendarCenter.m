@@ -107,4 +107,46 @@
     return eventsList;
 }
 
+-(void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
+{
+
+	
+	NSError *error = nil;
+	EKEvent *thisEvent = controller.event;
+	
+	switch (action) {
+		case EKEventEditViewActionCanceled:
+			// Edit action canceled, do nothing. 
+			break;
+			
+		case EKEventEditViewActionSaved:
+			// When user hit "Done" button, save the newly created event to the event store, 
+			// and reload table view.
+			// If the new event is being added to the default calendar, then update its 
+			// eventsList.
+			if (self.defaultCalendar ==  thisEvent.calendar) {
+				[self.eventsList addObject:thisEvent];
+			}
+			[controller.eventStore saveEvent:controller.event span:EKSpanThisEvent error:&error];
+
+			break;
+			
+		case EKEventEditViewActionDeleted:
+			// When deleting an event, remove the event from the event store, 
+			// and reload table view.
+			// If deleting an event from the currenly default calendar, then update its 
+			// eventsList.
+			if (self.defaultCalendar ==  thisEvent.calendar) {
+				[self.eventsList removeObject:thisEvent];
+			}
+			[controller.eventStore removeEvent:thisEvent span:EKSpanThisEvent error:&error];
+			break;
+			
+		default:
+			break;
+	}
+	// Dismiss the modal view controller
+	[controller dismissModalViewControllerAnimated:YES];
+}
+
 @end
