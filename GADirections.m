@@ -71,7 +71,7 @@
 	}
 
 
-    
+    [encoded release];
 	return array;
 }
 

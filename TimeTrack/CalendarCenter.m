@@ -10,7 +10,7 @@
 
 @implementation CalendarCenter
 
-@synthesize eventsList, eventStore, defaultCalendar, detailViewController;
+@synthesize eventsList, eventStore, defaultCalendar, detailViewController,delegate;
 
 - (id)init
 {
@@ -98,8 +98,7 @@
             NSString* tmp = [event.location copy];
             [event setLocation:[NSString stringWithFormat:@"%@ %@",
                                 tmp,
-                                [[GeoCoder getGeoCodeString:event.location] 
-                                 stringByMatching:@"\"(.*)\"" capture:1L]]];
+                                [ [GeoCoder getGeoCodeString:event.location] stringByMatching:@"\"(.*)\"" capture:1L]]];
             [tmp release];
         }
     }
@@ -149,4 +148,18 @@
 	[controller dismissModalViewControllerAnimated:YES];
 }
 
+- (void)addEvent:(id)sender 
+{
+	// When add button is pushed, create an EKEventEditViewController to display the event.
+	EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
+	
+	// set the addController's event store to the current event store.
+	addController.eventStore =  self.eventStore;
+	
+	// present EventsAddViewController as a modal view controller
+	[self.delegate presentModalViewController:addController animated:YES];
+	
+	addController.editViewDelegate = self;
+	[addController release];
+}
 @end

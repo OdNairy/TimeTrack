@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface MainViewController() 
 
@@ -105,18 +106,14 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)addEvent:(id)sender {
-	// When add button is pushed, create an EKEventEditViewController to display the event.
-	EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
-	
-	// set the addController's event store to the current event store.
-	addController.eventStore =  calendarCenter.eventStore;
-	
-	// present EventsAddViewController as a modal view controller
-	[self presentModalViewController:addController animated:YES];
-	
-	addController.editViewDelegate = calendarCenter;
-	[addController release];
+-(IBAction)addEvent:(id)sender
+{
+    [calendarCenter addEvent:sender];
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
 }
 
 - (IBAction)showInfo:(id)sender
@@ -132,19 +129,19 @@
 - (IBAction)longTap:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        /*UIMenuController *menuController = [UIMenuController sharedMenuController];
-        
-        UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Reset" action:@selector(showInfo:)];
+        UIMenuController *menuController = [UIMenuController sharedMenuController];
+
+        UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Add event HERE" action:@selector(addEvent:)];
+
         CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
         
-        [self.view becomeFirstResponder];
+        [self.mapView becomeFirstResponder];
         [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
-        [menuController setTargetRect:CGRectMake(location.x, location.y, 0, 0) inView:mapView];
+        [menuController setTargetRect:CGRectMake(location.x, location.y, 0, 0) inView:[gestureRecognizer view]];
         [menuController setMenuVisible:YES animated:YES];
         
         
-        [resetMenuItem release];*/
-        [self addEvent:gestureRecognizer];
+        [resetMenuItem release];
     }
 
 }
@@ -161,6 +158,7 @@
 {
     [super viewDidAppear:animated];
     calendarCenter = [[CalendarCenter alloc] init];
+    calendarCenter.delegate = self;
     
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     [self performSelectorInBackground:@selector(fetchAll:) withObject:nil];

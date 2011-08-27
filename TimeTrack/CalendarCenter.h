@@ -23,8 +23,9 @@
 @property (nonatomic, retain) EKCalendar *defaultCalendar;
 @property (nonatomic, retain) NSMutableArray *eventsList;
 @property (nonatomic, retain) EKEventViewController *detailViewController;
+@property (nonatomic, retain) id delegate;
 
 - (NSArray *) fetchEventsForToday;
 - (NSArray *) fetchEventsWithCoordinatesFrom: (NSDate*)from to:(NSDate*)to;
-
+- (void)addEvent:(id)sender;
 @end

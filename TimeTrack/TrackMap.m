@@ -99,6 +99,11 @@
 }
 
 
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
 
