@@ -15,8 +15,8 @@
 @interface GADirections : NSObject
 
 
-+(NSArray*)calculateRoutesFrom:(CLLocationCoordinate2D)A
-                            to:(CLLocationCoordinate2D)B
-                   WriteTimeTo:(NSMutableString *)travelTime;
++(NSArray*)calculateRoutesFrom:(CLLocation*)A
+                            to:(CLLocation*)B
+                   WriteTimeTo:(NSMutableString **)travelTime;
 
 @end

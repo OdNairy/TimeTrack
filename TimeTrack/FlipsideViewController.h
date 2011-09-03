@@ -13,8 +13,9 @@
 
 @protocol FlipsideViewControllerDelegate;
 
-@interface FlipsideViewController : UIViewController {
-
+@interface FlipsideViewController : UIViewController
+{
+    
 }
 
 @property (nonatomic, assign) id <FlipsideViewControllerDelegate> delegate;

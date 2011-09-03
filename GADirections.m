@@ -75,18 +75,18 @@
 	return array;
 }
 
-+(NSArray*)calculateRoutesFrom:(CLLocationCoordinate2D)A to:(CLLocationCoordinate2D)B WriteTimeTo:(NSMutableString *)travelTime
++(NSArray*)calculateRoutesFrom:(CLLocation*)A to:(CLLocation*)B WriteTimeTo:(NSMutableString **)travelTime
 {
     if (![Reachability isNetworkAvailable]) 
     {
         return nil;
     }
     
-    NSString* apiStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%f,%f&daddr=%f,%f",A.latitude,A.longitude,B.latitude,B.longitude];
+    NSString* apiStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%f,%f&daddr=%f,%f",A.coordinate.latitude,A.coordinate.longitude,B.coordinate.latitude,B.coordinate.longitude];
     NSString* apiResponse = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiStr] encoding:NSUTF8StringEncoding error:nil];
     
-    travelTime = [[apiResponse stringByMatching:@"tooltipHtml:\"\ .*?\/.(.*?).\"" capture:1L] mutableCopy];
-	
+    *travelTime = [[apiResponse stringByMatching:@"tooltipHtml:\"\ .*?\/.(.*?).\"" capture:1L] mutableCopy] ;
+	NSLog(@"calculate: travelTime = %@",*travelTime);
     return [GADirections decodePolyLine: [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L]];
 }
 

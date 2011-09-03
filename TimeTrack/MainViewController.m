@@ -10,94 +10,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MainViewController() 
-
--(void)fetchAll:(id)object;
-@end
-
 @implementation MainViewController
-@synthesize mapView,locationManager;
+
+@synthesize mapView;
+@synthesize locationManager;
 
 
--(void)drawPathWithArray:(NSArray *)points
-{   
-
-    CLLocationCoordinate2D* arr = malloc(points.count * sizeof(CLLocationCoordinate2D));
-    for (size_t i = 0; i < points.count; ++i) 
-    {
-        arr[i] = ((CLLocation*)[points objectAtIndex:i]).coordinate;
-    }
-
-    MKPolyline* polyline = [MKPolyline polylineWithCoordinates:arr count:[points count]];
-    polyline.title = @"Line";
-    
-    [mapView addOverlay:polyline];
-    [polyline release];
-    free(arr);
-}
-
--(void)showPathFrom:(CLLocationCoordinate2D)A To:(CLLocationCoordinate2D)B
+-(void)showPathFrom:(CLLocation*)A To:(CLLocation*)B
 {
     [mapView showPathFrom:A to:B];
-}
-
--(void)fetchAll:(id)object
-{
-    
-    if (![MainViewController isNetworkAvailable])
-    {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There are no internet connection" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        return;
-    }
-    eventArray = (NSMutableArray*)[calendarCenter fetchEventsWithCoordinatesFrom:[NSDate dateWithTimeIntervalSinceNow:-86400*10] to:[NSDate dateWithTimeIntervalSinceNow:86400]];
-    
-    NSDateFormatter* formater = [[NSDateFormatter alloc] init];
-    [formater setTimeStyle:NSDateFormatterShortStyle];
-    [formater setDateStyle:NSDateFormatterShortStyle];
-    for (EKEvent* event in eventArray) 
-    {
-        CLLocationCoordinate2D coors = CLLocationCoordinate2DMake([[event.location stringByMatching:@"([0-9\-\.]*),"  capture:1L] floatValue], 
-                                                                  [[event.location stringByMatching:@",([0-9\-\.]*) " capture:1L] floatValue]);
-        
-        [mapView addAnnotation:[MapEventAnnotation mapEventAnnotationWithName:event.title
-                                                                  description:[formater stringFromDate:event.startDate]
-                                                                     latitude:coors.latitude
-                                                                    longitude:coors.longitude]];
-    }
-
-    CLLocationCoordinate2D  points[4];
-    
-    points[0] = CLLocationCoordinate2DMake(41.000512, -109.050116);
-    points[1] = CLLocationCoordinate2DMake(41.002371, -102.052066);
-   
-    
-    NSArray* arr = [GADirections calculateRoutesFrom:points[0] to:points[1] WriteTimeTo:nil];
-    [self drawPathWithArray:arr];
-    
-    return;
-}
-
-
-
-
-+ (BOOL)isNetworkAvailable {
-    
-    Reachability *internetReach;
-    internetReach = [Reachability reachabilityForInternetConnection];
-    [internetReach startNotifier];
-    NetworkStatus netStatus = [internetReach currentReachabilityStatus];
-    if(netStatus == NotReachable) { 
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There are no internet connection" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        
-        NSLog(@"Network Unavailable");
-        return NO;
-    }
-    else
-        return YES;
 }
 
 
@@ -106,15 +27,36 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
--(IBAction)addEvent:(id)sender
+-(IBAction)addEvent:(UIMenuController *)menuController 
 {
-    [calendarCenter addEvent:sender];
+    // When add button is pushed, create an EKEventEditViewController to display the event.
+    EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
+    
+    // set the addController's event store to the current event store.
+    addController.eventStore =  [CalendarCenter defaultCenter].eventStore;
+    addController.event.location = ((UIMenuItem*)[menuController.menuItems objectAtIndex:0]).title;
+    
+    // present EventsAddViewController as a modal view controller
+    [self presentModalViewController:addController animated:YES];
+    
+    addController.editViewDelegate = [CalendarCenter defaultCenter];
+    [addController release];
+    
 }
 
--(BOOL)canBecomeFirstResponder
+-(void)addAnnotationFromEvent:(EKEvent *)event
 {
-    return YES;
+    MyPointAnnotation* annotation = [mapView createAnnotationFromEvent:event];
+    [mapView addAnnotation:annotation];
+    
+    [mapView setNeedsDisplay];
+    [mapView setCenterCoordinate:mapView.region.center animated:NO];
+    [mapView updateEvents];
+    
+    
+    return;
 }
+
 
 - (IBAction)showInfo:(id)sender
 {    
@@ -122,59 +64,88 @@
     controller.delegate = self;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:controller animated:YES];
-
+    
     [controller release];
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    // Upon selecting an event, create an EKEventViewController to display the event.
+    EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
+    
+    
+    addController.eventStore =  [CalendarCenter defaultCenter].eventStore;
+    addController.event = ((MyPointAnnotation*)[view annotation]).event;
+    
+    // present EventsAddViewController as a modal view controller
+    [self presentModalViewController:addController animated:YES];
+	//detailViewController.event = ((MyPointAnnotation*)[view annotation]).event;
+	//	Push detailViewController onto the navigation controller stack
+	//	If the underlying event gets deleted, detailViewController will remove itself from
+	//	the stack and clear its event property.
+    addController.editViewDelegate = [CalendarCenter defaultCenter];
+    [addController release];
+    
+    
 }
 
 - (IBAction)longTap:(UILongPressGestureRecognizer *)gestureRecognizer
 {
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) 
+    {
         UIMenuController *menuController = [UIMenuController sharedMenuController];
-
-        UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Add event HERE" action:@selector(addEvent:)];
-
         CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
         
+        CLLocationCoordinate2D touch = [mapView convertPoint:location toCoordinateFromView:[gestureRecognizer view]];
+        
+        NSString* str = [NSString stringWithFormat:@"%.5f,%.5f",touch.latitude,touch.longitude];
+        
+        UIMenuItem *addEventMenuItem = [[UIMenuItem alloc] initWithTitle:str action:@selector(addEvent:)];
+        //UIMenuItem *settingsMenuItem = [[UIMenuItem alloc] initWithTitle:@"Settings" action:@selector(showInfo:)];
+        
+        
         [self.mapView becomeFirstResponder];
-        [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
+        [menuController setMenuItems:[NSArray arrayWithObjects:addEventMenuItem,nil]];
         [menuController setTargetRect:CGRectMake(location.x, location.y, 0, 0) inView:[gestureRecognizer view]];
         [menuController setMenuVisible:YES animated:YES];
         
-        
-        [resetMenuItem release];
+        [addEventMenuItem release];
     }
-
+    
 }
 
 
 #pragma mark - App Live Circle
 
--(void)viewWillAppear:(BOOL)animated
+-(void)awakeFromNib
 {
-    return;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    calendarCenter = [[CalendarCenter alloc] init];
-    calendarCenter.delegate = self;
+    [super awakeFromNib];
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    [self performSelectorInBackground:@selector(fetchAll:) withObject:nil];
-    [pool release];
-    return;
-}
-
-
--(void)viewDidLoad
-{
+    
+    [CalendarCenter defaultCenter].delegate = self;
+    //lineColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    mapView = [[TrackMap alloc] initWithFrame:self.view.bounds];
+    mapView.showsUserLocation = YES;
+    mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    [button setFrame:CGRectMake(282, 422, 18, 18)];
+    button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    
+    
+    [button addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [mapView addSubview:button];
+    
+    [self.view addSubview:mapView];
+    
     mapView.delegate = self;
     
     // Create location manager with filters set for battery efficiency.
-	locationManager = [[CLLocationManager alloc] init];
-	locationManager.delegate = self;
-	locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
 	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 	
 	// Start updating location changes.
@@ -183,15 +154,43 @@
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
     [mapView addGestureRecognizer:longPressGesture];
     [longPressGesture release];
+    
+    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(showInfo:)];
+    [mapView addGestureRecognizer:rotationGesture];
+    [rotationGesture release];
+    
+    
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    [mapView performSelectorInBackground:@selector(updateEventsAndPath:) withObject:nil];
+    
+    [pool release];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    return;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+    return;
+}
+
+
+-(void)viewDidLoad
+{
+    
 }
 
 - (void)viewDidUnload
 {
     mapView = nil;
     [super viewDidUnload];
-
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 
@@ -199,32 +198,27 @@
 {
     self.locationManager.delegate = nil;
 	[locationManager release];
-    [calendarCenter release];
+    
     [mapView release];
     [super dealloc];
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+#pragma mark -
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ([overlay isKindOfClass:[MKPolyline class]])
-    {
-        MKPolylineView*    aView = [[[MKPolylineView alloc] initWithPolyline:(MKPolyline*)overlay] autorelease];
-        
-        aView.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        aView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.8];
-        aView.lineWidth = 3;
-        
-        return aView;
-    }
-    
-    return nil;
+    return YES;
 }
 
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
 
-#pragma mark - LocationManager Delegate
+#pragma mark - Location Manager Delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 	NSLog(@"didUpdateToLocation %@ from %@", newLocation, oldLocation);
-
+    
     if (oldLocation == nil)
     {
 		// Zoom to the current user location.
@@ -235,17 +229,11 @@
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
 
 
-#pragma mark -
-#pragma mark Map Delegate
+#pragma mark - Map Delegate
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-	
 	// don't change user-pin
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
@@ -257,19 +245,28 @@
 	pinView.canShowCallout=YES;
 	pinView.pinColor=MKPinAnnotationColorPurple;
 	
-	
 	UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 	[rightButton setTitle:annotation.title forState:UIControlStateNormal];
-	[rightButton addTarget:self
-					action:@selector(showDetails:)
-		  forControlEvents:UIControlEventTouchUpInside];
+    
 	pinView.rightCalloutAccessoryView = rightButton;
-	
-	UIImageView *profileIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile.png"]];
-	pinView.leftCalloutAccessoryView = profileIconView;
-	[profileIconView release];
-	
 	
 	return pinView;
 }
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolyline class]])
+    {
+        MKPolylineView* aView = [[[MKPolylineView alloc] initWithPolyline:(MKPolyline*)overlay] autorelease];
+        
+        aView.fillColor = [[UIColor  redColor] colorWithAlphaComponent:0.5];
+        aView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.8];
+        aView.lineWidth = 3;
+        
+        return aView;
+    }
+    
+    return nil;
+}
+
 @end

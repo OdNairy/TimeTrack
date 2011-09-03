@@ -13,10 +13,14 @@
 #import "GeoCoder.h"
 
 @interface CalendarCenter: NSObject<EKEventEditViewDelegate>{
+    
     EKEventViewController   *detailViewController;
              EKEventStore   *eventStore;
                EKCalendar   *defaultCalendar;
            NSMutableArray   *eventsList;
+    @private
+    
+    
 }
 
 @property (nonatomic, retain) EKEventStore *eventStore;
@@ -25,7 +29,8 @@
 @property (nonatomic, retain) EKEventViewController *detailViewController;
 @property (nonatomic, retain) id delegate;
 
-- (NSArray *) fetchEventsForToday;
-- (NSArray *) fetchEventsWithCoordinatesFrom: (NSDate*)from to:(NSDate*)to;
-- (void)addEvent:(id)sender;
+
+- (NSArray *)fetchEventsWithCoordinatesFrom: (NSDate*)from to:(NSDate*)to;
++ (CalendarCenter*)defaultCenter;
++ (CLLocation*)createLocationFromEvent:(EKEvent*)event;
 @end

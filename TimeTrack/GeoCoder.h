@@ -14,7 +14,7 @@
 @interface GeoCoder
 
 +(NSString*)getGeoCodeString:(NSString*)place;
-+(CLLocationCoordinate2D)getGeoCodeCoordinates:(NSString*)place;
-+(CLLocationCoordinate2D)getCoorsFromString:(NSString*)place;
++(CLLocation*)getGeoCodeCoordinates:(NSString*)place;
++(CLLocation*)createLocationFromGeoString:(NSString*)geoString;
 
 @end

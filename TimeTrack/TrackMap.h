@@ -10,17 +10,28 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
 #import "RegexKitLite.h"
-@interface TrackMap : MKMapView
+#import "GADirections.h"
 
+#import "CalendarCenter.h"
+#import "MyPointAnnotation.h"
+
+@interface TrackMap : MKMapView
 {
-@private
-    NSMutableArray* routes;
     UIColor* lineColor;
+    CalendarCenter* calendarCenter;
+    NSArray* eventsArray;
 }
 
-// returned time to pass from A to B
-- (NSDate*)showPathFrom:(CLLocationCoordinate2D)A to:(CLLocationCoordinate2D)B;
-- (NSArray*) calculateRoutesFrom:(CLLocationCoordinate2D)A to: (CLLocationCoordinate2D)B WriteTimeTo:(NSMutableString*)travelTime;
+@property (nonatomic, retain) NSArray* eventsArray;
 
+// returned time to pass from A to B
+- (NSDate*)showPathFrom:(CLLocation*)A to:(CLLocation*)B;
+- (NSDate*)showPathFromArray:(NSArray*)locationsArray UserLocationFirst:(BOOL)useUserLocation;
+
+- (MyPointAnnotation*)createAnnotationFromEvent:(EKEvent*)event;
+
+- (void)updateEvents;
+- (void)updateEventsAndPath:(id)sender;
+- (void)updateEventForAnnotation:(id<MKAnnotation>)annotation;
 
 @end

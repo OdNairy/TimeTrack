@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE030D82140A1CBE009FDCCB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FE030D81140A1CBE009FDCCB /* Icon.png */; };
+		FE030D86140A1CE2009FDCCB /* IconHD.png in Resources */ = {isa = PBXBuildFile; fileRef = FE030D85140A1CE2009FDCCB /* IconHD.png */; };
 		FE114AB414066A9B004EDB3D /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = FE114AB314066A9B004EDB3D /* TrackMap.m */; };
 		FE6B85A213FD6BE000EA1861 /* GeoCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = FE6B85A113FD6BDF00EA1861 /* GeoCoder.m */; };
 		FE6D1EFA13FEAF2F00A3FD59 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6D1EF913FEAF2F00A3FD59 /* CoreLocation.framework */; };
@@ -30,9 +32,9 @@
 		FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8A6FF413FD2531009CA421 /* RegexKitLite.m */; };
 		FE8A6FF813FD2719009CA421 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8A6FF713FD2719009CA421 /* MapKit.framework */; };
 		FE8CA84C1406EEB800882196 /* GADirections.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CA84B1406EEB800882196 /* GADirections.m */; };
-		FE94AF4913FD9A1B00018849 /* MapEventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */; };
 		FE9E4CCD140575F4002B22F7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9E4CCC140575F4002B22F7 /* Reachability.m */; };
 		FE9E4CD31405771D002B22F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9E4CD21405771D002B22F7 /* SystemConfiguration.framework */; };
+		FEC1CF95141014E700593FC6 /* MyPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC1CF94141014E700593FC6 /* MyPointAnnotation.m */; };
 		FEC2965A140541DA004F1F51 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = FEC29659140541DA004F1F51 /* profile.png */; };
 		FEF424ED13FD3B3500737AB9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EC13FD3B3500737AB9 /* EventKit.framework */; };
 		FEF424F013FD3B3B00737AB9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE030D81140A1CBE009FDCCB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		FE030D85140A1CE2009FDCCB /* IconHD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconHD.png; sourceTree = "<group>"; };
 		FE114AB214066A9A004EDB3D /* TrackMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMap.h; sourceTree = "<group>"; };
 		FE114AB314066A9B004EDB3D /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
 		FE6B85A013FD6BDF00EA1861 /* GeoCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCoder.h; sourceTree = "<group>"; };
@@ -83,11 +87,11 @@
 		FE8A6FF713FD2719009CA421 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FE8CA84A1406EEB800882196 /* GADirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GADirections.h; path = ../GADirections.h; sourceTree = "<group>"; };
 		FE8CA84B1406EEB800882196 /* GADirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GADirections.m; path = ../GADirections.m; sourceTree = "<group>"; };
-		FE94AF4713FD9A1A00018849 /* MapEventAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapEventAnnotation.h; sourceTree = "<group>"; };
-		FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapEventAnnotation.m; sourceTree = "<group>"; };
 		FE9E4CCB140575F4002B22F7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = SOURCE_ROOT; };
 		FE9E4CCC140575F4002B22F7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = SOURCE_ROOT; };
 		FE9E4CD21405771D002B22F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FEC1CF93141014E700593FC6 /* MyPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPointAnnotation.h; sourceTree = "<group>"; };
+		FEC1CF94141014E700593FC6 /* MyPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPointAnnotation.m; sourceTree = "<group>"; };
 		FEC29659140541DA004F1F51 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		FEF424EC13FD3B3500737AB9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		FEF424EF13FD3B3B00737AB9 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -127,6 +131,8 @@
 		FE82D96913FD1CAA0055A0D0 = {
 			isa = PBXGroup;
 			children = (
+				FE030D85140A1CE2009FDCCB /* IconHD.png */,
+				FE030D81140A1CBE009FDCCB /* Icon.png */,
 				FE82D9B513FD1CDA0055A0D0 /* 3rd party library */,
 				FE82D97E13FD1CAA0055A0D0 /* TimeTrack */,
 				FE82D9A213FD1CAB0055A0D0 /* TimeTrackTests */,
@@ -164,8 +170,6 @@
 			children = (
 				FE82D98713FD1CAA0055A0D0 /* TimeTrackAppDelegate.h */,
 				FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */,
-				FE94AF4713FD9A1A00018849 /* MapEventAnnotation.h */,
-				FE94AF4813FD9A1A00018849 /* MapEventAnnotation.m */,
 				FE8A6FF613FD2681009CA421 /* views */,
 				FE94AF4513FD980600018849 /* Controllers */,
 				FE8CA84E1406F1BF00882196 /* Models */,
@@ -221,11 +225,11 @@
 		FE8A6FF613FD2681009CA421 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				FE114AB214066A9A004EDB3D /* TrackMap.h */,
-				FE114AB314066A9B004EDB3D /* TrackMap.m */,
 				FE82D98A13FD1CAA0055A0D0 /* MainWindow.xib */,
 				FE82D99013FD1CAA0055A0D0 /* MainView.xib */,
 				FE82D99513FD1CAB0055A0D0 /* FlipsideView.xib */,
+				FE114AB214066A9A004EDB3D /* TrackMap.h */,
+				FE114AB314066A9B004EDB3D /* TrackMap.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -233,6 +237,8 @@
 		FE8CA84E1406F1BF00882196 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FEC1CF93141014E700593FC6 /* MyPointAnnotation.h */,
+				FEC1CF94141014E700593FC6 /* MyPointAnnotation.m */,
 				FE6B85A013FD6BDF00EA1861 /* GeoCoder.h */,
 				FE6B85A113FD6BDF00EA1861 /* GeoCoder.m */,
 				FE8CA84A1406EEB800882196 /* GADirections.h */,
@@ -326,6 +332,8 @@
 				FE82D99113FD1CAA0055A0D0 /* MainView.xib in Resources */,
 				FE82D99613FD1CAB0055A0D0 /* FlipsideView.xib in Resources */,
 				FEC2965A140541DA004F1F51 /* profile.png in Resources */,
+				FE030D82140A1CBE009FDCCB /* Icon.png in Resources */,
+				FE030D86140A1CE2009FDCCB /* IconHD.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,10 +376,10 @@
 				FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */,
 				FEF424F413FD45E400737AB9 /* CalendarCenter.m in Sources */,
 				FE6B85A213FD6BE000EA1861 /* GeoCoder.m in Sources */,
-				FE94AF4913FD9A1B00018849 /* MapEventAnnotation.m in Sources */,
 				FE9E4CCD140575F4002B22F7 /* Reachability.m in Sources */,
 				FE114AB414066A9B004EDB3D /* TrackMap.m in Sources */,
 				FE8CA84C1406EEB800882196 /* GADirections.m in Sources */,
+				FEC1CF95141014E700593FC6 /* MyPointAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +438,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -445,6 +454,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;

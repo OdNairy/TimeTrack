@@ -56,7 +56,7 @@
 
 #import "Reachability.h"
 
-#define kShouldPrintReachabilityFlags 1
+#define kShouldPrintReachabilityFlags 0
 
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags    flags, const char* comment)
 {
@@ -136,6 +136,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     [internetReach startNotifier];
     NetworkStatus netStatus = [internetReach currentReachabilityStatus];
     if(netStatus == NotReachable) { 
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"There are no internet connection"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        
         NSLog(@"Network Unavailable");
         return NO;
     }

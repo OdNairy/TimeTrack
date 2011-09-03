@@ -17,29 +17,48 @@
 #define G_GEO_BAD_KEY               @"610"
 #define G_GEO_TOO_MANY_QUERIES      @"620"
 
+
 @implementation GeoCoder
 
-+(NSString*)getGeoCodeString:(NSString*)place{
++(CLLocation*)createLocationFromGeoString:(NSString*)geoString
+{
+    CLLocationCoordinate2D coors = CLLocationCoordinate2DMake(
+                                            [[geoString stringByMatching:@"^..(.*)"
+                                                             capture:1L] floatValue],
+                                            [[geoString stringByMatching:@",.*?,(.*)"
+                                                             capture:1L] floatValue]);
+    if (coors.latitude == 0 && coors.longitude == 0)
+    {
+        return nil;
+    }
+    else
+    {
+        return [[[CLLocation alloc] initWithLatitude:coors.latitude
+                                           longitude:coors.longitude]
+                autorelease];
+    }
+}
+
++(NSString*)getGeoCodeString:(NSString*)place
+{
     NSString* a = [NSString stringWithContentsOfURL:[NSURL URLWithString:
                                                      [NSString stringWithFormat:
  @"http://maps.google.com/maps/geo?q=%@&output=csv&oe=utf8&sensor=false&key=ABQIAAAAsQG"
   "q8WplM--eXjoG22fyoxQfeLOjlwh1gOAGly-wMj-tpVbFhxRxlFsf4c59AN-bk20pwlqZVKAjtA",place]] 
                                            encoding:NSUTF8StringEncoding 
                                               error:nil];
-    if ([[a stringByMatching:@"^[0-9]{3}"] isEqualToString:G_GEO_SUCCESS]) {
+    if ([[a stringByMatching:@"^[0-9]{3}"] isEqualToString:G_GEO_SUCCESS])
+    {
         return [a stringByMatching:@"^[0-9]{3},(.*)" capture:1L];
     }
 
     return nil;
 }
 
-+(CLLocationCoordinate2D)getGeoCodeCoordinates:(NSString*)place{
++(CLLocation*)getGeoCodeCoordinates:(NSString*)place
+{
     NSString* coors = [GeoCoder getGeoCodeString:place];
-    return [GeoCoder getCoorsFromString:coors];
+    return [GeoCoder createLocationFromGeoString:coors];
 }
 
-+(CLLocationCoordinate2D)getCoorsFromString:(NSString *)place{
-    return CLLocationCoordinate2DMake([[place stringByMatching:@"^..(.*)"   capture:1L] floatValue], 
-                                      [[place stringByMatching:@",.*?,(.*)" capture:1L] floatValue]);
-}
 @end
