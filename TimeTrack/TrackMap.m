@@ -46,6 +46,8 @@
     [eventsArray release];
     [calendarCenter release];
     [super dealloc];
+    
+    return;
 }
 
 #pragma mark - Update Event/Paths
@@ -57,16 +59,15 @@
     {
         return;
     }
+    [self updateEvents];
     
-    CLLocation* A, *B;
-    A = [[CLLocation alloc] initWithLatitude:41.000512 longitude:-109.050116];
-    B = [[CLLocation alloc] initWithLatitude:41.002371 longitude:-102.052066];
-    NSArray* arr = [[NSArray alloc] initWithObjects:A,B, nil];
-    
-    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    [self performSelectorInBackground:@selector(showPathFromArray:UserLocationFirst:) withObject:arr];
-    [pool release];
+//    CLLocation *A = [[CLLocation alloc] initWithLatitude:41.000512 longitude:-109.050116];
+//    CLLocation *B = [[CLLocation alloc] initWithLatitude:41.002371 longitude:-102.052066];
+//    NSArray *arr  = [[NSArray alloc] initWithObjects: A, B, nil];
+//    
+//    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+//    [self showPathFromArray:arr UserLocationFirst:YES];
+//    [pool release];
     
     return;
 }
@@ -78,14 +79,15 @@
         [self removeAnnotation:annotation];
     }
     [self addAnnotation:annotation];
-   // [self setNeedsDisplay];
+    
+    return;
 }
 
 -(void)updateEvents
 {
- 
-    eventsArray = [[CalendarCenter defaultCenter] fetchEventsWithCoordinatesFrom:[NSDate dateWithTimeIntervalSinceNow:-86400*10]
-                                                                              to:[NSDate dateWithTimeIntervalSinceNow:86400]];     
+    eventsArray = [[CalendarCenter defaultCenter] fetchEventsWithCoordinatesFrom:
+                   [NSDate dateWithTimeIntervalSinceNow:-86400*10]
+                to:[NSDate dateWithTimeIntervalSinceNow:86400  ]];
     
     
     if ([self annotations])
@@ -95,7 +97,7 @@
     
     [self createAnotationsFrom:eventsArray];
 
-   // [self setNeedsDisplay];
+    return;
 }
 
 #pragma mark - Create Annotations
@@ -110,12 +112,14 @@
     
     CLLocation* coors = [CalendarCenter createLocationFromEvent:event];
     
-    MyPointAnnotation* pointAnnotation = [[MyPointAnnotation alloc] init] ;
+    MyPointAnnotation* pointAnnotation = [[[MyPointAnnotation alloc] init] autorelease];
          pointAnnotation.event = event;
          pointAnnotation.title = event.title;
       pointAnnotation.subtitle = [formater stringFromDate:event.startDate];
     pointAnnotation.coordinate = coors.coordinate;
     
+    
+    [formater release];
     return pointAnnotation;
 }
 
@@ -127,6 +131,8 @@
         id<MKAnnotation> annotation = [self createAnnotationFromEvent:event];
         [self addAnnotation:annotation];
     }
+    
+    return;
 }
 
 
@@ -136,6 +142,7 @@
 
 - (NSDate*)showPathFromArray:(NSArray*)locationsArray UserLocationFirst:(BOOL)useUserLocation
 {
+    // TODO: rewrite message to take array of points: A, B, C, etc. ; but no A1,A2,…,A_N,B
     NSMutableString* travelTime;
     NSArray* pointsOfDirection;
     NSMutableArray* locations = [[NSMutableArray alloc] init];
@@ -158,7 +165,9 @@
 
     [self updateEvents];
     
+    NSLog(@"calculate: travelTime = %@",travelTime);
     [travelTime release];
+    
     return nil;
 }
 
@@ -169,12 +178,12 @@
     NSMutableString* travelTime = [[NSMutableString alloc] init];
     
     
-    NSArray* pointsOfDirection;
-    pointsOfDirection = [[GADirections calculateRoutesFrom:A
+    NSMutableArray* pointsOfDirection = [[GADirections calculateRoutesFrom:A
                                                        to:B
                                               WriteTimeTo:&travelTime    ] copy];
     
-    [self drawPathWithArray:[NSArray arrayWithObjects:A,B, nil]];
+    
+    [self drawPathWithArray:pointsOfDirection];
     NSLog(@"%@",travelTime);
     
     
@@ -200,7 +209,6 @@
 
 -(void)drawPathWithArray:(NSArray *)points
 {   
-    
     CLLocationCoordinate2D* arr = malloc(points.count * sizeof(CLLocationCoordinate2D));
     for (size_t i = 0; i < points.count; ++i) 
     {
@@ -213,6 +221,8 @@
     [self addOverlay:polyline];
     [polyline release];
     free(arr);
+    
+    return;
 }
 
 

@@ -27,47 +27,55 @@
 
 +(NSArray*)decodePolyLine:(NSString *)encodedStr
 {
+    if (!encodedStr) {
+        return nil;
+    }
+    
     NSMutableString* encoded = [encodedStr mutableCopy];
     [encoded replaceOccurrencesOfString:@"\\\\" withString:@"\\"
 								options:NSLiteralSearch
 								  range:NSMakeRange(0, [encoded length])];
-	NSInteger 
-    length = [encoded length],
-    i = 0;
+	NSInteger length = [encoded length];
+    NSInteger lat = 0;
+    NSInteger lng = 0;
+    NSUInteger i = 0;
 	NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
-	NSInteger 
-    lat = 0,
-    lng = 0;
-	while (i < length) {
+	
+	while (i < length)
+    {
 		NSInteger b;
 		NSInteger shift = 0;
 		NSInteger result = 0;
-		do {
+		do 
+        {
 			b = [encoded characterAtIndex:i++] - 63;
 			result |= (b & 0x1f) << shift;
 			shift += 5;
+            
 		} while (b >= 0x20);
         
 		NSInteger dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
 		lat += dlat;
 		shift = 0;
 		result = 0;
+        
 		do {
 			b = [encoded characterAtIndex:i++] - 63;
 			result |= (b & 0x1f) << shift;
 			shift += 5;
+            
 		} while (b >= 0x20);
         
 		NSInteger dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
 		lng += dlng;
-		NSNumber *latitude = [[[NSNumber alloc] initWithFloat:lat * 1e-5] autorelease];
-		NSNumber *longitude = [[[NSNumber alloc] initWithFloat:lng * 1e-5] autorelease];
         
+		NSNumber *latitude  = [NSNumber numberWithFloat:lat * 1e-5];
+		NSNumber *longitude = [NSNumber numberWithFloat:lng * 1e-5];
         
-        CLLocation *loc = [[[CLLocation alloc] initWithLatitude:[latitude floatValue] 
-                                                      longitude:[longitude floatValue]] 
-                           autorelease];
+        CLLocation *loc = [[CLLocation alloc] initWithLatitude:[latitude floatValue] 
+                                                     longitude:[longitude floatValue]];
 		[array addObject:loc];
+        [loc release];
 	}
 
 
@@ -77,16 +85,23 @@
 
 +(NSArray*)calculateRoutesFrom:(CLLocation*)A to:(CLLocation*)B WriteTimeTo:(NSMutableString **)travelTime
 {
-    if (![Reachability isNetworkAvailable]) 
+    if (![Reachability isNetworkAvailable])
     {
         return nil;
     }
     
-    NSString* apiStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%f,%f&daddr=%f,%f",A.coordinate.latitude,A.coordinate.longitude,B.coordinate.latitude,B.coordinate.longitude];
-    NSString* apiResponse = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiStr] encoding:NSUTF8StringEncoding error:nil];
+    NSString* apiStr = [NSString stringWithFormat:@"http://maps.google.com/maps?units=metric&output=dragdir&saddr=%f,%f&daddr=%f,%f",
+                        A.coordinate.latitude ,
+                        A.coordinate.longitude,
+                        B.coordinate.latitude ,
+                        B.coordinate.longitude];
+
+    NSString* apiResponse = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiStr]
+                                                     encoding:NSUTF8StringEncoding
+                                                        error:nil];
     
-    *travelTime = [[apiResponse stringByMatching:@"tooltipHtml:\"\ .*?\/.(.*?).\"" capture:1L] mutableCopy] ;
-	NSLog(@"calculate: travelTime = %@",*travelTime);
+    *travelTime = [[apiResponse stringByMatching:@"tooltipHtml:\" .*?/.(.*?).\"" capture:1L] mutableCopy];
+	
     return [GADirections decodePolyLine: [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L]];
 }
 

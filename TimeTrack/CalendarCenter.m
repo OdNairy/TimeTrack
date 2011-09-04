@@ -41,7 +41,7 @@ static CalendarCenter* defaultCenter = nil;
         // Initialize an event store object with the init method. Initilize the array for events.
         self.eventStore = [[EKEventStore alloc] init];
         
-        self.eventsList = [[NSMutableArray alloc] init];
+//        self.eventsList = [[NSMutableArray alloc] init];
         
         // Fetch today's event on selected calendar and put them into the eventsList array
 //        [self.eventsList addObjectsFromArray:[self fetchEventsForToday]];
@@ -78,6 +78,7 @@ static CalendarCenter* defaultCenter = nil;
 - (NSArray *)fetchEventsWithCoordinatesFrom:(NSDate*)from to:(NSDate*)to
 {
     // Take all events between input dates [from; to]
+
     eventsList = [[self.eventStore eventsMatchingPredicate:
                    [self.eventStore predicateForEventsWithStartDate:from
                                                             endDate:to

@@ -10,6 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
+@interface MainViewController()
+-(void)initView;
+@end
+
 @implementation MainViewController
 
 @synthesize mapView;
@@ -117,40 +121,33 @@
 
 #pragma mark - App Live Circle
 
--(void)awakeFromNib
+-(void)initMapView
 {
-    [super awakeFromNib];
-    
-    
-    [CalendarCenter defaultCenter].delegate = self;
-    //lineColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     mapView = [[TrackMap alloc] initWithFrame:self.view.bounds];
     mapView.showsUserLocation = YES;
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
+    mapView.delegate = self;
+}
+
+-(UIButton*)initButton
+{
     UIButton* button = [UIButton buttonWithType:UIButtonTypeInfoDark];
     [button setFrame:CGRectMake(282, 422, 18, 18)];
     button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    
-    
     [button addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [mapView addSubview:button];
-    
-    [self.view addSubview:mapView];
-    
-    mapView.delegate = self;
-    
-    // Create location manager with filters set for battery efficiency.
+    return button;
+}
+
+-(void)initLocationManager
+{
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
 	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	
-	// Start updating location changes.
-	[locationManager startUpdatingLocation];
-    
+}
+
+-(void)initGestures
+{
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
     [mapView addGestureRecognizer:longPressGesture];
     [longPressGesture release];
@@ -158,11 +155,32 @@
     UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(showInfo:)];
     [mapView addGestureRecognizer:rotationGesture];
     [rotationGesture release];
+}
+
+-(void)initView
+{
+    [CalendarCenter defaultCenter].delegate = self;
+    [self initMapView];
+    
+    UIButton* button = [self initButton];
+    [mapView addSubview:button];
+    
+    [self.view addSubview:mapView];
+    
+    [self initLocationManager];
+	[locationManager startUpdatingLocation];
+    
+    return;
+}
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self initView];
     
     
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     [mapView performSelectorInBackground:@selector(updateEventsAndPath:) withObject:nil];
-    
     [pool release];
 }
 
@@ -216,15 +234,31 @@
 }
 
 #pragma mark - Location Manager Delegate
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-	NSLog(@"didUpdateToLocation %@ from %@", newLocation, oldLocation);
-    
-    if (oldLocation == nil)
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+   
+    if (!oldLocation)
     {
 		// Zoom to the current user location.
 		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
 		[mapView setRegion:userLocation animated:YES];
     }
+
+    NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
+    
+    NSArray* overlays = [mapView overlays];
+    [mapView removeOverlays:overlays];
+    
+    if (eventList.count > 0)
+    {
+
+        
+        [mapView showPathFrom:newLocation
+                           to:[CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]]];
+    }
+    
 	
 }
 
