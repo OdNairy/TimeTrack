@@ -7,6 +7,7 @@
 //
 
 #import "GeoCoder.h"
+#import "RegexKitLite.h"
 
 // http://code.google.com/intl/ru/apis/maps/documentation/geocoding/#StatusCodes Just RUSSIAN
 #define G_GEO_SUCCESS               @"200"

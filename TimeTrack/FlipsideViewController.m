@@ -15,6 +15,8 @@
 
 - (void)dealloc
 {
+    [navigationModeSegment release];
+    [useGeolocationSwitch release];
     [super dealloc];
 }
 
@@ -33,6 +35,10 @@
 
 - (void)viewDidUnload
 {
+    [navigationModeSegment release];
+    navigationModeSegment = nil;
+    [useGeolocationSwitch release];
+    useGeolocationSwitch = nil;
     [super viewDidUnload];
 }
 
@@ -43,9 +49,15 @@
 
 #pragma mark - Actions
 
-- (IBAction)done:(id)sender
+- (IBAction)save:(id)sender
 {
     [self.delegate flipsideViewControllerDidFinish:self];
 }
+
+- (IBAction)cancel:(id)sender
+{
+    [self.delegate flipsideViewControllerDidFinish:self];
+}
+
 
 @end

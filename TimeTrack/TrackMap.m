@@ -38,6 +38,7 @@
     {
         eventsArray = [[NSArray alloc] init];
     }
+    
     return self;
 }
 
@@ -54,21 +55,17 @@
 
 -(void)updateEventsAndPath:(id)sender
 {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     if (![Reachability isNetworkAvailable])
     {
+        [pool release];
         return;
     }
     [self updateEvents];
+    [self updatePath];
     
-//    CLLocation *A = [[CLLocation alloc] initWithLatitude:41.000512 longitude:-109.050116];
-//    CLLocation *B = [[CLLocation alloc] initWithLatitude:41.002371 longitude:-102.052066];
-//    NSArray *arr  = [[NSArray alloc] initWithObjects: A, B, nil];
-//    
-//    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-//    [self showPathFromArray:arr UserLocationFirst:YES];
-//    [pool release];
-    
+    [pool release];
     return;
 }
 
@@ -82,6 +79,33 @@
     
     return;
 }
+
+-(void)updatePath
+{
+    NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
+    
+    NSArray* overlays = [[self overlays] autorelease];
+    [self removeOverlays:overlays];
+    
+    
+    CLLocationCoordinate2D coors = self.userLocation.coordinate;
+    if (coors.latitude == 0 && coors.longitude == 0)
+    {
+        return;
+    }
+    
+    if (eventList.count > 0)
+    {
+        CLLocation* loc = [CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]];
+        [self showPathFrom:self.userLocation.location
+                        to:loc];
+
+    }
+    
+    return;
+}
+
+
 
 -(void)updateEvents
 {
@@ -117,7 +141,6 @@
          pointAnnotation.title = event.title;
       pointAnnotation.subtitle = [formater stringFromDate:event.startDate];
     pointAnnotation.coordinate = coors.coordinate;
-    
     
     [formater release];
     return pointAnnotation;
@@ -157,8 +180,8 @@
     
     for (size_t i = 0;i < locations.count - 1; ++i)
     {
-        pointsOfDirection = [GADirections calculateRoutesFrom:[locations objectAtIndex:i    ]
-                                                           to:[locations objectAtIndex:i +1 ]
+        pointsOfDirection = [GADirections calculateRoutesFrom:[locations objectAtIndex:i   ]
+                                                           to:[locations objectAtIndex:i +1]
                                                   WriteTimeTo:(i ? nil : &travelTime)];
         [self drawPathWithArray:pointsOfDirection];
     }
@@ -177,11 +200,18 @@
     
     NSMutableString* travelTime = [[NSMutableString alloc] init];
     
+    if (!A) 
+    {
+        A = [[CLLocation alloc] initWithLatitude:37.33147 longitude:-122.03077];
+    }
+    NSMutableArray* pointsOfDirection = [[NSMutableArray alloc] initWithObjects:A, nil];
     
-    NSMutableArray* pointsOfDirection = [[GADirections calculateRoutesFrom:A
-                                                       to:B
-                                              WriteTimeTo:&travelTime    ] copy];
+    [pointsOfDirection addObjectsFromArray:[GADirections calculateRoutesFrom:A
+                                                                          to:B
+                                                                 WriteTimeTo:&travelTime]];
     
+    
+    [pointsOfDirection addObject:B];
     
     [self drawPathWithArray:pointsOfDirection];
     NSLog(@"%@",travelTime);
@@ -209,6 +239,10 @@
 
 -(void)drawPathWithArray:(NSArray *)points
 {   
+    if (points.count < 3)
+    {
+        return ;
+    }
     CLLocationCoordinate2D* arr = malloc(points.count * sizeof(CLLocationCoordinate2D));
     for (size_t i = 0; i < points.count; ++i) 
     {
@@ -220,6 +254,7 @@
     
     [self addOverlay:polyline];
     [polyline release];
+    
     free(arr);
     
     return;

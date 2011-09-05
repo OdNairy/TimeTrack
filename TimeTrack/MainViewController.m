@@ -64,12 +64,10 @@
 
 - (IBAction)showInfo:(id)sender
 {    
-    FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
-    controller.delegate = self;
-    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+
     [self presentModalViewController:controller animated:YES];
     
-    [controller release];
+    //[controller release];
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
@@ -105,7 +103,7 @@
         NSString* str = [NSString stringWithFormat:@"%.5f,%.5f",touch.latitude,touch.longitude];
         
         UIMenuItem *addEventMenuItem = [[UIMenuItem alloc] initWithTitle:str action:@selector(addEvent:)];
-        //UIMenuItem *settingsMenuItem = [[UIMenuItem alloc] initWithTitle:@"Settings" action:@selector(showInfo:)];
+//        UIMenuItem *settingsMenuItem = [[UIMenuItem alloc] initWithTitle:@"Settings" action:@selector(showInfo:)];
         
         
         [self.mapView becomeFirstResponder];
@@ -157,10 +155,12 @@
     [rotationGesture release];
 }
 
+
 -(void)initView
 {
     [CalendarCenter defaultCenter].delegate = self;
     [self initMapView];
+    [self initGestures];
     
     UIButton* button = [self initButton];
     [mapView addSubview:button];
@@ -173,15 +173,25 @@
     return;
 }
 
+-(void)initFlipsideController
+{
+    controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
+    controller.delegate = self;
+    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+}
+
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+    
     [self initView];
+    [self initFlipsideController];
     
     
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     [mapView performSelectorInBackground:@selector(updateEventsAndPath:) withObject:nil];
-    [pool release];
+
+    
+    return;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -195,7 +205,6 @@
 {
     [super viewDidAppear:animated];
     
-    
     return;
 }
 
@@ -203,12 +212,15 @@
 -(void)viewDidLoad
 {
     
+    return;
 }
 
 - (void)viewDidUnload
 {
     mapView = nil;
     [super viewDidUnload];
+    
+    return;
 }
 
 
@@ -219,17 +231,21 @@
     
     [mapView release];
     [super dealloc];
+    
+    return;
 }
 
 #pragma mark -
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    
     return YES;
 }
 
 -(BOOL)canBecomeFirstResponder
 {
+    
     return YES;
 }
 
@@ -238,31 +254,23 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-   
-    if (!oldLocation)
-    {
+    NSLog(@"[%f,%f] ->  [%f,%f]",oldLocation.coordinate.latitude,oldLocation.coordinate.longitude,
+                                 newLocation.coordinate.latitude,newLocation.coordinate.longitude);
+//    if (!oldLocation)
+//    {
 		// Zoom to the current user location.
 		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
 		[mapView setRegion:userLocation animated:YES];
-    }
-
-    NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
+//    }
     
-    NSArray* overlays = [mapView overlays];
-    [mapView removeOverlays:overlays];
+    NSLog(@"[%f,%f]",newLocation.coordinate.latitude,newLocation.coordinate.longitude);
     
-    if (eventList.count > 0)
-    {
-
-        
-        [mapView showPathFrom:newLocation
-                           to:[CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]]];
-    }
+    //CLLocationCoordinate2D coors = mapView.userLocation.coordinate;
     
-	
+    [mapView updatePath];
+    
+	return;
 }
-
-
 
 
 #pragma mark - Map Delegate

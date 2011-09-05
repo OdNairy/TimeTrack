@@ -16,11 +16,14 @@
 @interface FlipsideViewController : UIViewController
 {
     
+    IBOutlet UISegmentedControl *navigationModeSegment;
+    IBOutlet UISwitch *useGeolocationSwitch;
 }
 
 @property (nonatomic, assign) id <FlipsideViewControllerDelegate> delegate;
 
-- (IBAction)done:(id)sender;
+- (IBAction)save:(id)sender;
+- (IBAction)cancel:(id)sender;
 
 @end
 

@@ -9,6 +9,12 @@
 #import "GADirections.h"
 
 @interface GADirections()
+
+/*!
+    @method     decodePolyLine:
+    @discussion Look alghorithm in
+    http://code.google.com/intl/ru/apis/maps/documentation/utilities/polylinealgorithm.html
+*/
 +(NSArray *)decodePolyLine: (NSString *)encodedStr;
 @end
 
@@ -18,7 +24,8 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         // Initialization code here.
     }
     
@@ -101,8 +108,13 @@
                                                         error:nil];
     
     *travelTime = [[apiResponse stringByMatching:@"tooltipHtml:\" .*?/.(.*?).\"" capture:1L] mutableCopy];
-	
-    return [GADirections decodePolyLine: [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L]];
+    NSString* points_str = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
+    if (!points_str) {
+        return nil;
+    }
+    
+	NSArray* points = [GADirections decodePolyLine: points_str];
+    return points;
 }
 
 @end

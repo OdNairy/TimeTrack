@@ -31,6 +31,7 @@
 
 - (MyPointAnnotation*)createAnnotationFromEvent:(EKEvent*)event;
 
+- (void)updatePath;
 - (void)updateEvents;
 - (void)updateEventsAndPath:(id)sender;
 - (void)updateEventForAnnotation:(id<MKAnnotation>)annotation;

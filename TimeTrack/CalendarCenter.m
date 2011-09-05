@@ -61,10 +61,9 @@ static CalendarCenter* defaultCenter = nil;
 
 +(CLLocation*)createLocationFromEvent:(EKEvent*)event
 {
-    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([[event.location stringByMatching:@"(.*)," 
-                                                                                       capture:1L] floatValue],
-                                                             [[event.location stringByMatching:@",(.*) "
-                                                                                       capture:1L] floatValue]);
+    NSArray*arr = [event.location componentsSeparatedByString:@","];
+    CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([[arr objectAtIndex:0] floatValue],
+                                                             [[arr objectAtIndex:1] floatValue]);
     if (coor.latitude == 0 && coor.longitude == 0)
     {
         return nil;
@@ -106,6 +105,7 @@ static CalendarCenter* defaultCenter = nil;
         // If there are no coordinates in field "location"
         if (eventCoors == nil) 
         {
+            //[GeoCoder createLocationFromGeoString:(NSString *)];
             eventCoors = [GeoCoder getGeoCodeCoordinates:[event location]];
             
             if (eventCoors.coordinate.latitude == 0 && eventCoors.coordinate.longitude == 0) 
@@ -114,6 +114,7 @@ static CalendarCenter* defaultCenter = nil;
                 [eventsList removeObjectAtIndex:i];
                 continue;
             }
+
             [event setLocation:[NSString stringWithFormat:@"%f,%f %@",
                                 eventCoors.coordinate.latitude,
                                 eventCoors.coordinate.longitude,
@@ -121,12 +122,14 @@ static CalendarCenter* defaultCenter = nil;
         }
         else
         {
-            NSString* tmp = [event.location copy];
+            NSMutableString* tmp = [event.location mutableCopy];
+           // [event.location release];
             [event setLocation:[NSString stringWithFormat:@"%@ %@",
                                 tmp,
                                 [ [GeoCoder getGeoCodeString:event.location] stringByMatching:@"\"(.*)\"" capture:1L]]];
             [tmp release];
         }
+        
     }
     
     // Will be returned sorted array

@@ -20,10 +20,12 @@
           TrackMap  *mapView;
     
     CLLocationManager *locationManager;
+    FlipsideViewController *controller;
 }
 
 @property (nonatomic, retain) TrackMap *mapView;
 @property (nonatomic, retain) CLLocationManager *locationManager;
+
 
 
 - (IBAction)showInfo:(id)sender;

@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "RegexKitLite.h"
 
 
-@interface GeoCoder
+
+@interface GeoCoder:NSObject
 
 +(NSString*)getGeoCodeString:(NSString*)place;
 +(CLLocation*)getGeoCodeCoordinates:(NSString*)place;
