@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class MainViewController;
+@class TrackMapViewController;
 
 @interface TimeTrackAppDelegate : NSObject <UIApplicationDelegate> {
 
@@ -16,6 +16,6 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet MainViewController *mainViewController;
+@property (nonatomic, retain) IBOutlet TrackMapViewController *mainViewController;
 
 @end

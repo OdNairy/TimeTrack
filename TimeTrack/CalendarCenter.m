@@ -7,7 +7,7 @@
 //
 
 #import "CalendarCenter.h"
-#import "MainViewController.h"
+#import "TrackMapViewController.h"
 
 @interface CalendarCenter()
 +(CLLocation*)createLocationFromEvent:(EKEvent*)event;
@@ -22,40 +22,28 @@ static CalendarCenter* defaultCenter = nil;
 
 +(CalendarCenter*)defaultCenter
 {
-    @synchronized([CalendarCenter class])
+    @synchronized(self)
     {
         
         if (!defaultCenter)
         {
             defaultCenter = [[CalendarCenter alloc] init];
+            defaultCenter.eventStore = [[EKEventStore alloc] init];
         }
+        return defaultCenter;
     }
-    return defaultCenter;
-}
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        // Initialize an event store object with the init method. Initilize the array for events.
-        self.eventStore = [[EKEventStore alloc] init];
-        
-//        self.eventsList = [[NSMutableArray alloc] init];
-        
-        // Fetch today's event on selected calendar and put them into the eventsList array
-//        [self.eventsList addObjectsFromArray:[self fetchEventsForToday]];
-    }
-    
-    return self;
 }
 
 - (void)dealloc
 {
     [eventStore release];
     [eventsList release];
+
+    [defaultCenter release];
     [super dealloc];
 }
+
 
 #pragma mark - Fetch Events
 
@@ -167,7 +155,7 @@ static CalendarCenter* defaultCenter = nil;
             
             [self.eventsList removeObject:thisEvent];
 			[controller.eventStore removeEvent:thisEvent span:EKSpanThisEvent error:&error];
-            [((MainViewController*)delegate).mapView updateEvents];
+            [((TrackMapViewController*)delegate).mapView updateEvents];
 			break;
 			
 		default:

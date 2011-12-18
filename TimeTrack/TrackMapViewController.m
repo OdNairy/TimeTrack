@@ -6,15 +6,15 @@
 //  Copyright 2011 iTransition ©. All rights reserved.
 //
 
-#import "MainViewController.h"
+#import "TrackMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MainViewController()
+@interface TrackMapViewController()
 -(void)initView;
 @end
 
-@implementation MainViewController
+@implementation TrackMapViewController
 
 @synthesize mapView;
 @synthesize locationManager;
@@ -103,7 +103,7 @@
         NSString* str = [NSString stringWithFormat:@"%.5f,%.5f",touch.latitude,touch.longitude];
         
         UIMenuItem *addEventMenuItem = [[UIMenuItem alloc] initWithTitle:str action:@selector(addEvent:)];
-//        UIMenuItem *settingsMenuItem = [[UIMenuItem alloc] initWithTitle:@"Settings" action:@selector(showInfo:)];
+
         
         
         [self.mapView becomeFirstResponder];
@@ -127,15 +127,6 @@
     mapView.delegate = self;
 }
 
--(UIButton*)initButton
-{
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    [button setFrame:CGRectMake(282, 422, 18, 18)];
-    button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    [button addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
-    return button;
-}
-
 -(void)initLocationManager
 {
     locationManager = [[CLLocationManager alloc] init];
@@ -150,9 +141,9 @@
     [mapView addGestureRecognizer:longPressGesture];
     [longPressGesture release];
     
-    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(showInfo:)];
-    [mapView addGestureRecognizer:rotationGesture];
-    [rotationGesture release];
+//    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(showInfo:)];
+//    [mapView addGestureRecognizer:rotationGesture];
+//    [rotationGesture release];
 }
 
 
@@ -162,8 +153,13 @@
     [self initMapView];
     [self initGestures];
     
-    UIButton* button = [self initButton];
-    [mapView addSubview:button];
+    
+//    UIButton* button = [UIButton buttonWithType:UIButtonTypeInfoDark] ;
+//    [button setFrame:CGRectMake(282, 422, 18, 18)];
+//    button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+//    [button addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+//    [mapView addSubview:button];
+
     
     [self.view addSubview:mapView];
     
@@ -185,7 +181,7 @@
     [super awakeFromNib];
     
     [self initView];
-    [self initFlipsideController];
+   // [self initFlipsideController];
     
     
     [mapView performSelectorInBackground:@selector(updateEventsAndPath:) withObject:nil];
@@ -197,7 +193,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [mapView updatePath];
     return;
 }
 
@@ -239,13 +235,11 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    
     return YES;
 }
 
 -(BOOL)canBecomeFirstResponder
 {
-    
     return YES;
 }
 
@@ -256,12 +250,12 @@
 {
     NSLog(@"[%f,%f] ->  [%f,%f]",oldLocation.coordinate.latitude,oldLocation.coordinate.longitude,
                                  newLocation.coordinate.latitude,newLocation.coordinate.longitude);
-//    if (!oldLocation)
-//    {
+    if (!oldLocation)
+    {
 		// Zoom to the current user location.
 		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
 		[mapView setRegion:userLocation animated:YES];
-//    }
+    }
     
     NSLog(@"[%f,%f]",newLocation.coordinate.latitude,newLocation.coordinate.longitude);
     

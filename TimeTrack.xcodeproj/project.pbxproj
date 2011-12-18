@@ -19,7 +19,7 @@
 		FE82D98613FD1CAA0055A0D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98513FD1CAA0055A0D0 /* main.m */; };
 		FE82D98913FD1CAA0055A0D0 /* TimeTrackAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */; };
 		FE82D98C13FD1CAA0055A0D0 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE82D98A13FD1CAA0055A0D0 /* MainWindow.xib */; };
-		FE82D98F13FD1CAA0055A0D0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */; };
+		FE82D98F13FD1CAA0055A0D0 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D98E13FD1CAA0055A0D0 /* TrackMapViewController.m */; };
 		FE82D99113FD1CAA0055A0D0 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE82D99013FD1CAA0055A0D0 /* MainView.xib */; };
 		FE82D99413FD1CAB0055A0D0 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */; };
 		FE82D99613FD1CAB0055A0D0 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE82D99513FD1CAB0055A0D0 /* FlipsideView.xib */; };
@@ -52,8 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FE030D81140A1CBE009FDCCB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		FE030D85140A1CE2009FDCCB /* IconHD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconHD.png; sourceTree = "<group>"; };
+		FE030D81140A1CBE009FDCCB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		FE030D85140A1CE2009FDCCB /* IconHD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconHD.png; path = ../IconHD.png; sourceTree = "<group>"; };
 		FE114AB214066A9A004EDB3D /* TrackMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMap.h; sourceTree = "<group>"; };
 		FE114AB314066A9B004EDB3D /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
 		FE6B85A013FD6BDF00EA1861 /* GeoCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCoder.h; sourceTree = "<group>"; };
@@ -70,8 +70,8 @@
 		FE82D98713FD1CAA0055A0D0 /* TimeTrackAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeTrackAppDelegate.h; sourceTree = "<group>"; };
 		FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeTrackAppDelegate.m; sourceTree = "<group>"; };
 		FE82D98B13FD1CAA0055A0D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		FE82D98D13FD1CAA0055A0D0 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		FE82D98D13FD1CAA0055A0D0 /* TrackMapViewController.h */ = {isa = PBXFileReference; path = TrackMapViewController.h; sourceTree = "<group>"; };
+		FE82D98E13FD1CAA0055A0D0 /* TrackMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackMapViewController.m; sourceTree = "<group>"; };
 		FE82D99013FD1CAA0055A0D0 /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		FE82D99213FD1CAA0055A0D0 /* FlipsideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
 		FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
@@ -131,8 +131,6 @@
 		FE82D96913FD1CAA0055A0D0 = {
 			isa = PBXGroup;
 			children = (
-				FE030D85140A1CE2009FDCCB /* IconHD.png */,
-				FE030D81140A1CBE009FDCCB /* Icon.png */,
 				FE82D9B513FD1CDA0055A0D0 /* 3rd party library */,
 				FE82D97E13FD1CAA0055A0D0 /* TimeTrack */,
 				FE82D9A213FD1CAB0055A0D0 /* TimeTrackTests */,
@@ -181,6 +179,8 @@
 		FE82D97F13FD1CAA0055A0D0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FE030D85140A1CE2009FDCCB /* IconHD.png */,
+				FE030D81140A1CBE009FDCCB /* Icon.png */,
 				FEC29659140541DA004F1F51 /* profile.png */,
 				FE82D98013FD1CAA0055A0D0 /* TimeTrack-Info.plist */,
 				FE82D98113FD1CAA0055A0D0 /* InfoPlist.strings */,
@@ -252,8 +252,8 @@
 		FE94AF4513FD980600018849 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FE82D98D13FD1CAA0055A0D0 /* MainViewController.h */,
-				FE82D98E13FD1CAA0055A0D0 /* MainViewController.m */,
+				FE82D98D13FD1CAA0055A0D0 /* TrackMapViewController.h */,
+				FE82D98E13FD1CAA0055A0D0 /* TrackMapViewController.m */,
 				FE82D99213FD1CAA0055A0D0 /* FlipsideViewController.h */,
 				FE82D99313FD1CAB0055A0D0 /* FlipsideViewController.m */,
 			);
@@ -371,7 +371,7 @@
 			files = (
 				FE82D98613FD1CAA0055A0D0 /* main.m in Sources */,
 				FE82D98913FD1CAA0055A0D0 /* TimeTrackAppDelegate.m in Sources */,
-				FE82D98F13FD1CAA0055A0D0 /* MainViewController.m in Sources */,
+				FE82D98F13FD1CAA0055A0D0 /* TrackMapViewController.m in Sources */,
 				FE82D99413FD1CAB0055A0D0 /* FlipsideViewController.m in Sources */,
 				FE8A6FF513FD2531009CA421 /* RegexKitLite.m in Sources */,
 				FEF424F413FD45E400737AB9 /* CalendarCenter.m in Sources */,

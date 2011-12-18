@@ -14,7 +14,7 @@
 #import "GADirections.h"
 
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate,MKMapViewDelegate,CLLocationManagerDelegate> {
+@interface TrackMapViewController : UIViewController <FlipsideViewControllerDelegate,MKMapViewDelegate,CLLocationManagerDelegate> {
     CalendarCenter  *calendarCenter;
     NSMutableArray  *eventArray;
           TrackMap  *mapView;

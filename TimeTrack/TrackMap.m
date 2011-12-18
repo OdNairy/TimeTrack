@@ -57,13 +57,11 @@
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    if (![Reachability isNetworkAvailable])
+    if ([Reachability isNetworkAvailable])
     {
-        [pool release];
-        return;
+        [self updateEvents];
+        [self updatePath];
     }
-    [self updateEvents];
-    [self updatePath];
     
     [pool release];
     return;
@@ -84,7 +82,7 @@
 {
     NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
     
-    NSArray* overlays = [[self overlays] autorelease];
+    NSArray* overlays = [self overlays];
     [self removeOverlays:overlays];
     
     
@@ -188,35 +186,32 @@
 
     [self updateEvents];
     
-    NSLog(@"calculate: travelTime = %@",travelTime);
-    [travelTime release];
-    
+    [locations release];
     return nil;
 }
 
 
 -(NSDate *)showPathFrom:(CLLocation*)A to:(CLLocation*)B
 {
-    
+
     NSMutableString* travelTime = [[NSMutableString alloc] init];
     
-    if (!A) 
-    {
-        A = [[CLLocation alloc] initWithLatitude:37.33147 longitude:-122.03077];
-    }
-    NSMutableArray* pointsOfDirection = [[NSMutableArray alloc] initWithObjects:A, nil];
+//    if (!A) 
+//    {
+//        A = [[CLLocation alloc] initWithLatitude:37.33147 longitude:-122.03077];
+//    }
+
     
-    [pointsOfDirection addObjectsFromArray:[GADirections calculateRoutesFrom:A
-                                                                          to:B
-                                                                 WriteTimeTo:&travelTime]];
-    
-    
-    [pointsOfDirection addObject:B];
-    
-    [self drawPathWithArray:pointsOfDirection];
-    NSLog(@"%@",travelTime);
+    NSArray* routePoints = [[GADirections calculateRoutesFrom:A
+                                                          to:B
+                                                 WriteTimeTo:&travelTime] retain];
+
     
     
+    [self drawPathWithArray:routePoints];
+    NSLog(@"Time for travel: %@",travelTime);
+    
+    [routePoints release];
     [travelTime release];
 
     return nil;
@@ -253,7 +248,6 @@
     polyline.title = @"line-Direction";
     
     [self addOverlay:polyline];
-    [polyline release];
     
     free(arr);
     

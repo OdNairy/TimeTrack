@@ -8,7 +8,7 @@
 
 #import "TimeTrackAppDelegate.h"
 
-#import "MainViewController.h"
+#import "TrackMapViewController.h"
 
 @implementation TimeTrackAppDelegate
 

@@ -102,18 +102,32 @@
                         A.coordinate.longitude,
                         B.coordinate.latitude ,
                         B.coordinate.longitude];
-
+    
+    NSLog(@"GET->%@",apiStr);
+    
     NSString* apiResponse = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiStr]
                                                      encoding:NSUTF8StringEncoding
                                                         error:nil];
     
-    *travelTime = [[apiResponse stringByMatching:@"tooltipHtml:\" .*?/.(.*?).\"" capture:1L] mutableCopy];
+    NSString* travTime = [apiResponse stringByMatching:@"tooltipHtml:\" .*?/.(.*?).\"" capture:1L];
+    if (travelTime) {
+        *travelTime = [travTime mutableCopy];
+        NSLog(@"calculate: travelTime = %@",*travelTime);
+    }
     NSString* points_str = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
     if (!points_str) {
         return nil;
     }
     
-	NSArray* points = [GADirections decodePolyLine: points_str];
+    
+    NSMutableArray* points = [[[NSMutableArray alloc] initWithObjects:A, nil] autorelease];
+	
+    NSArray* pointsBetweenAAndB = [GADirections decodePolyLine: points_str];
+    [points addObjectsFromArray:pointsBetweenAAndB];
+    
+    [points addObject:B];
+    
+
     return points;
 }
 
