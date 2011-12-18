@@ -349,13 +349,24 @@
         return;
     }
     
+
+    
     if (eventList.count > 0)
     {
         CLLocation* currentLocation = [[[mapView userLocation] location] retain];
-        CLLocation* loc = [CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]];
+        CLLocation* B = [CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]];
         [mapView showPathFrom:currentLocation
-                           to:loc];
+                           to:B];
         [currentLocation release];
+        
+        for (size_t i = 1; i < eventList.count; ++i) {
+            CLLocation* A = [[CalendarCenter createLocationFromEvent:[eventList objectAtIndex:i-1]] retain];
+            CLLocation* B = [[CalendarCenter createLocationFromEvent:[eventList objectAtIndex:i]] retain];
+            [mapView showPathFrom:A
+                               to:B];
+            [B release];
+            [A release];
+        }
     }
     
     return;
