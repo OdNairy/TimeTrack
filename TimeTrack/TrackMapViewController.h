@@ -34,4 +34,9 @@
 - (void)addAnnotationFromEvent:(EKEvent*)event;
 - (void)showPathFrom:(CLLocation*)A To:(CLLocation*)B;
 
+- (void)updatePath;
+- (void)updateEvents;
+- (void)updateEventsAndPath:(id)sender;
+- (void)updateEventForAnnotation:(id<MKAnnotation>)annotation;
+
 @end

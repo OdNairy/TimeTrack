@@ -155,7 +155,7 @@ static CalendarCenter* defaultCenter = nil;
             
             [self.eventsList removeObject:thisEvent];
 			[controller.eventStore removeEvent:thisEvent span:EKSpanThisEvent error:&error];
-            [((TrackMapViewController*)delegate).mapView updateEvents];
+            [delegate updateEvents];
 			break;
 			
 		default:

@@ -11,7 +11,6 @@
 @interface TrackMap()
 
 -(void)drawPathWithArray:(NSArray *)points;
--(void)createAnotationsFrom:(NSArray*)events;
 
 @end
 
@@ -51,77 +50,6 @@
     return;
 }
 
-#pragma mark - Update Event/Paths
-
--(void)updateEventsAndPath:(id)sender
-{
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    if ([Reachability isNetworkAvailable])
-    {
-        [self updateEvents];
-        [self updatePath];
-    }
-    
-    [pool release];
-    return;
-}
-
--(void)updateEventForAnnotation:(id<MKAnnotation>)annotation
-{
-    if ([self annotations])
-    {
-        [self removeAnnotation:annotation];
-    }
-    [self addAnnotation:annotation];
-    
-    return;
-}
-
--(void)updatePath
-{
-    NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
-    
-    NSArray* overlays = [self overlays];
-    [self removeOverlays:overlays];
-    
-    
-    CLLocationCoordinate2D coors = self.userLocation.coordinate;
-    if (coors.latitude == 0 && coors.longitude == 0)
-    {
-        return;
-    }
-    
-    if (eventList.count > 0)
-    {
-        CLLocation* loc = [CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]];
-        [self showPathFrom:self.userLocation.location
-                        to:loc];
-
-    }
-    
-    return;
-}
-
-
-
--(void)updateEvents
-{
-    eventsArray = [[CalendarCenter defaultCenter] fetchEventsWithCoordinatesFrom:
-                   [NSDate dateWithTimeIntervalSinceNow:-86400*10]
-                to:[NSDate dateWithTimeIntervalSinceNow:86400  ]];
-    
-    
-    if ([self annotations])
-    {
-        [self removeAnnotations:[self annotations]];
-    }
-    
-    [self createAnotationsFrom:eventsArray];
-
-    return;
-}
-
 #pragma mark - Create Annotations
 
 
@@ -145,7 +73,7 @@
 }
 
 
--(void)createAnotationsFrom:(NSArray*)events
+-(void)insertAnotationsFromEventsArray:(NSArray*)events
 {
     for (EKEvent* event in events)
     {
@@ -180,11 +108,11 @@
     {
         pointsOfDirection = [GADirections calculateRoutesFrom:[locations objectAtIndex:i   ]
                                                            to:[locations objectAtIndex:i +1]
-                                                  WriteTimeTo:(i ? nil : &travelTime)];
+                                                  writeTimeTo:(i ? nil : &travelTime)];
         [self drawPathWithArray:pointsOfDirection];
     }
 
-    [self updateEvents];
+//    [self updateEvents];
     
     [locations release];
     return nil;
@@ -196,17 +124,9 @@
 
     NSMutableString* travelTime = [[NSMutableString alloc] init];
     
-//    if (!A) 
-//    {
-//        A = [[CLLocation alloc] initWithLatitude:37.33147 longitude:-122.03077];
-//    }
-
-    
     NSArray* routePoints = [[GADirections calculateRoutesFrom:A
                                                           to:B
-                                                 WriteTimeTo:&travelTime] retain];
-
-    
+                                                 writeTimeTo:&travelTime] retain];
     
     [self drawPathWithArray:routePoints];
     NSLog(@"Time for travel: %@",travelTime);

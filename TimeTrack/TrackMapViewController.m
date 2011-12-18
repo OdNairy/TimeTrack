@@ -55,7 +55,7 @@
     
     [mapView setNeedsDisplay];
     [mapView setCenterCoordinate:mapView.region.center animated:NO];
-    [mapView updateEvents];
+    [self updateEvents];
     
     
     return;
@@ -125,6 +125,7 @@
     mapView.showsUserLocation = YES;
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     mapView.delegate = self;
+    [mapView setUserTrackingMode:(MKUserTrackingModeFollow) animated:YES];
 }
 
 -(void)initLocationManager
@@ -184,7 +185,7 @@
    // [self initFlipsideController];
     
     
-    [mapView performSelectorInBackground:@selector(updateEventsAndPath:) withObject:nil];
+    [self performSelectorInBackground:@selector(updateEventsAndPath:) withObject:nil];
 
     
     return;
@@ -193,7 +194,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [mapView updatePath];
+    [self updatePath];
     return;
 }
 
@@ -250,18 +251,18 @@
 {
     NSLog(@"[%f,%f] ->  [%f,%f]",oldLocation.coordinate.latitude,oldLocation.coordinate.longitude,
                                  newLocation.coordinate.latitude,newLocation.coordinate.longitude);
-    if (!oldLocation)
-    {
-		// Zoom to the current user location.
-		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
-		[mapView setRegion:userLocation animated:YES];
-    }
+//    if (!oldLocation)
+//    {
+//		// Zoom to the current user location.
+//		MKCoordinateRegion userLocation = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 1500.0, 1500.0);
+//		[mapView setRegion:userLocation animated:YES];
+//    }
     
     NSLog(@"[%f,%f]",newLocation.coordinate.latitude,newLocation.coordinate.longitude);
     
     //CLLocationCoordinate2D coors = mapView.userLocation.coordinate;
     
-    [mapView updatePath];
+    [self updatePath];
     
 	return;
 }
@@ -304,5 +305,80 @@
     
     return nil;
 }
+
+
+#pragma mark - Update Event/Paths
+
+-(void)updateEventsAndPath:(id)sender
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    if ([Reachability isNetworkAvailable])
+    {
+        [self updateEvents];
+        [self updatePath];
+    }
+    
+    [pool release];
+    return;
+}
+
+-(void)updateEventForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([mapView annotations])
+    {
+        [mapView removeAnnotation:annotation];
+    }
+    
+    [mapView addAnnotation:annotation];
+    
+    return;
+}
+
+-(void)updatePath
+{
+    NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
+    
+    NSArray* overlays = [mapView overlays];
+    [mapView removeOverlays:overlays];
+    
+    
+    CLLocationCoordinate2D coors = mapView.userLocation.coordinate;
+    if (coors.latitude == 0 && coors.longitude == 0)
+    {
+        return;
+    }
+    
+    if (eventList.count > 0)
+    {
+        CLLocation* currentLocation = [[[mapView userLocation] location] retain];
+        CLLocation* loc = [CalendarCenter createLocationFromEvent:[eventList objectAtIndex:0]];
+        [mapView showPathFrom:currentLocation
+                           to:loc];
+        [currentLocation release];
+    }
+    
+    return;
+}
+
+
+
+-(void)updateEvents
+{
+    mapView.eventsArray = [[CalendarCenter defaultCenter] fetchEventsWithCoordinatesFrom:
+                   [NSDate dateWithTimeIntervalSinceNow:-86400*10]
+                                                                              to:[NSDate dateWithTimeIntervalSinceNow:86400  ]];
+    
+    
+    if ([mapView annotations])
+    {
+        [mapView removeAnnotations:[mapView annotations]];
+    }
+    
+    [mapView insertAnotationsFromEventsArray:mapView.eventsArray];
+    
+    return;
+}
+
 
 @end

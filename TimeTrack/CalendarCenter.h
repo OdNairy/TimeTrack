@@ -12,7 +12,8 @@
 #import <MapKit/MapKit.h>
 #import "GeoCoder.h"
 
-@interface CalendarCenter: NSObject<EKEventEditViewDelegate>{
+@interface CalendarCenter: NSObject<EKEventEditViewDelegate>
+{
     
     EKEventViewController   *detailViewController;
              EKEventStore   *eventStore;

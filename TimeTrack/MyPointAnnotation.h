@@ -15,6 +15,4 @@
 
 @property(nonatomic,assign) EKEvent* event;
 
-
-
 @end

@@ -17,6 +17,6 @@
 
 +(NSArray*)calculateRoutesFrom:(CLLocation*)A
                             to:(CLLocation*)B
-                   WriteTimeTo:(NSMutableString **)travelTime;
+                   writeTimeTo:(NSMutableString **)travelTime;
 
 @end

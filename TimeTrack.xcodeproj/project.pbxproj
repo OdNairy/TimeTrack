@@ -70,7 +70,7 @@
 		FE82D98713FD1CAA0055A0D0 /* TimeTrackAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeTrackAppDelegate.h; sourceTree = "<group>"; };
 		FE82D98813FD1CAA0055A0D0 /* TimeTrackAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeTrackAppDelegate.m; sourceTree = "<group>"; };
 		FE82D98B13FD1CAA0055A0D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		FE82D98D13FD1CAA0055A0D0 /* TrackMapViewController.h */ = {isa = PBXFileReference; path = TrackMapViewController.h; sourceTree = "<group>"; };
+		FE82D98D13FD1CAA0055A0D0 /* TrackMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
 		FE82D98E13FD1CAA0055A0D0 /* TrackMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackMapViewController.m; sourceTree = "<group>"; };
 		FE82D99013FD1CAA0055A0D0 /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		FE82D99213FD1CAA0055A0D0 /* FlipsideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
@@ -304,6 +304,9 @@
 /* Begin PBXProject section */
 		FE82D96B13FD1CAA0055A0D0 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = FE82D96E13FD1CAA0055A0D0 /* Build configuration list for PBXProject "TimeTrack" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -473,6 +476,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeTrack/TimeTrack-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TimeTrack/TimeTrack-Info.plist";
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -487,6 +491,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeTrack/TimeTrack-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TimeTrack/TimeTrack-Info.plist";
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -506,6 +511,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeTrackTests/TimeTrackTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TimeTrackTests/TimeTrackTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -528,6 +534,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeTrackTests/TimeTrackTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TimeTrackTests/TimeTrackTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",

@@ -21,17 +21,6 @@
 
 @implementation GADirections
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        // Initialization code here.
-    }
-    
-    return self;
-}
-
 +(NSArray*)decodePolyLine:(NSString *)encodedStr
 {
     if (!encodedStr) {
@@ -58,7 +47,6 @@
 			b = [encoded characterAtIndex:i++] - 63;
 			result |= (b & 0x1f) << shift;
 			shift += 5;
-            
 		} while (b >= 0x20);
         
 		NSInteger dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
@@ -70,7 +58,6 @@
 			b = [encoded characterAtIndex:i++] - 63;
 			result |= (b & 0x1f) << shift;
 			shift += 5;
-            
 		} while (b >= 0x20);
         
 		NSInteger dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
@@ -90,7 +77,7 @@
 	return array;
 }
 
-+(NSArray*)calculateRoutesFrom:(CLLocation*)A to:(CLLocation*)B WriteTimeTo:(NSMutableString **)travelTime
++(NSArray*)calculateRoutesFrom:(CLLocation*)A to:(CLLocation*)B writeTimeTo:(NSMutableString **)travelTime
 {
     if (![Reachability isNetworkAvailable])
     {
@@ -105,30 +92,35 @@
     
     NSLog(@"GET->%@",apiStr);
     
+    NSError* error = nil;
     NSString* apiResponse = [NSString stringWithContentsOfURL:[NSURL URLWithString:apiStr]
                                                      encoding:NSUTF8StringEncoding
-                                                        error:nil];
-    
-    NSString* travTime = [apiResponse stringByMatching:@"tooltipHtml:\" .*?/.(.*?).\"" capture:1L];
-    if (travelTime) {
-        *travelTime = [travTime mutableCopy];
-        NSLog(@"calculate: travelTime = %@",*travelTime);
-    }
-    NSString* points_str = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
-    if (!points_str) {
+                                                        error:&error];
+    if (!error) {
+        
+        NSString* travTime = [apiResponse stringByMatching:@"tooltipHtml:\" .*?/.(.*?).\"" capture:1L];
+        if (travelTime) {
+            *travelTime = [travTime mutableCopy];
+            NSLog(@"Calculate: travelTime = %@",*travelTime);
+        }
+        NSString* points_str = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
+        if (points_str) {
+            NSMutableArray* points = [[NSMutableArray alloc] init];
+            [points addObject:A];
+            
+            NSArray* pointsBetweenAAndB = [GADirections decodePolyLine: points_str];
+            [points addObjectsFromArray:pointsBetweenAAndB];
+            [points addObject:B];
+            
+            [points autorelease];
+            return points;
+        }
         return nil;
     }
     
-    
-    NSMutableArray* points = [[[NSMutableArray alloc] initWithObjects:A, nil] autorelease];
-	
-    NSArray* pointsBetweenAAndB = [GADirections decodePolyLine: points_str];
-    [points addObjectsFromArray:pointsBetweenAAndB];
-    
-    [points addObject:B];
-    
+    NSLog(@"Error: %@",error);
+    return nil;
 
-    return points;
 }
 
 @end

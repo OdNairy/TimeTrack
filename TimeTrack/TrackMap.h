@@ -29,11 +29,10 @@
 - (NSDate*)showPathFrom:(CLLocation*)A to:(CLLocation*)B;
 - (NSDate*)showPathFromArray:(NSArray*)locationsArray UserLocationFirst:(BOOL)useUserLocation;
 
-- (MyPointAnnotation*)createAnnotationFromEvent:(EKEvent*)event;
+-(MyPointAnnotation*)createAnnotationFromEvent:(EKEvent*)event;
+-(void)insertAnotationsFromEventsArray:(NSArray*)events;
 
-- (void)updatePath;
-- (void)updateEvents;
-- (void)updateEventsAndPath:(id)sender;
-- (void)updateEventForAnnotation:(id<MKAnnotation>)annotation;
+
+
 
 @end
