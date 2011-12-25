@@ -84,6 +84,16 @@
         return nil;
     }
     
+    /*
+     
+     Travel Modes
+     When you calculate directions, you may specify which transportation mode to use. By default, directions are calculated as driving directions. The following travel modes are currently supported:
+            driving (default)           indicates standard driving directions using the road network.
+            walking                     requests walking directions via pedestrian paths & sidewalks (where available).
+            bicycling                   requests bicycling directions via bicycle paths & preferred streets (currently only available in the US).
+
+     */
+    
     NSString* apiStr = [NSString stringWithFormat:@"http://maps.google.com/maps?units=metric&output=dragdir&saddr=%f,%f&daddr=%f,%f",
                         A.coordinate.latitude ,
                         A.coordinate.longitude,

@@ -194,7 +194,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updatePath];
+    [self updatePathFromPosition:nil];
     return;
 }
 
@@ -260,9 +260,12 @@
     
     NSLog(@"[%f,%f]",newLocation.coordinate.latitude,newLocation.coordinate.longitude);
     
-    //CLLocationCoordinate2D coors = mapView.userLocation.coordinate;
-    
-    [self updatePath];
+    CLLocationCoordinate2D mapViewCoors = mapView.userLocation.coordinate;
+    if (mapViewCoors.latitude != newLocation.coordinate.latitude && mapViewCoors.longitude !=newLocation.coordinate.longitude) {
+        sleep(1);
+    }
+    //sleep(1);
+    [self updatePathFromPosition:newLocation];
     
 	return;
 }
@@ -316,7 +319,7 @@
     if ([Reachability isNetworkAvailable])
     {
         [self updateEvents];
-        [self updatePath];
+        [self updatePathFromPosition:nil];
     }
     
     [pool release];
@@ -335,15 +338,21 @@
     return;
 }
 
--(void)updatePath
+-(void)updatePathFromPosition:(CLLocation*)currentLocation
 {
     NSMutableArray* eventList = [CalendarCenter defaultCenter].eventsList;
     
     NSArray* overlays = [mapView overlays];
     [mapView removeOverlays:overlays];
     
-    
-    CLLocationCoordinate2D coors = mapView.userLocation.coordinate;
+    CLLocationCoordinate2D coors;
+    if (currentLocation) {
+        coors = currentLocation.coordinate;
+    }else
+    {
+        coors = mapView.userLocation.location.coordinate;
+    }
+    NSLog(@"Map at: [%f,%f]",coors.latitude,coors.longitude);
     if (coors.latitude == 0 && coors.longitude == 0)
     {
         return;
@@ -372,13 +381,13 @@
     return;
 }
 
+#define FETCH_TIME (3600*24*7)
 
 
 -(void)updateEvents
 {
-    mapView.eventsArray = [[CalendarCenter defaultCenter] fetchEventsWithCoordinatesFrom:
-                   [NSDate dateWithTimeIntervalSinceNow:-86400*10]
-                                                                              to:[NSDate dateWithTimeIntervalSinceNow:86400  ]];
+    mapView.eventsArray = [[CalendarCenter defaultCenter] fetchEventsWithCoordinatesFrom:[NSDate date]
+                                                                                      to:[NSDate dateWithTimeIntervalSinceNow:FETCH_TIME  ]];
     
     
     if ([mapView annotations])

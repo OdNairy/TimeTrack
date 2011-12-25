@@ -128,7 +128,7 @@
                                                           to:B
                                                  writeTimeTo:&travelTime] retain];
     
-    [self drawPathWithArray:routePoints];
+    [self  performSelectorOnMainThread:@selector(drawPathWithArray:) withObject:routePoints waitUntilDone:YES];
     NSLog(@"Time for travel: %@",travelTime);
     
     [routePoints release];
